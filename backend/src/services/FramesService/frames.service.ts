@@ -13,14 +13,14 @@ export class FramesService {
     async createFrame(
         name: string,
         url: string,
-        config: Record<string, any>,
-        config_viewer: Record<string, any>,
+        // config: Record<string, any>,
+        // config_viewer: Record<string, any>,
     ): Promise<Frames> {
         const deal = this.framesRepository.create({
             name,
             url,
-            config,
-            config_viewer,
+            // config,
+            // config_viewer,
         });
         return this.framesRepository.save(deal);
     }

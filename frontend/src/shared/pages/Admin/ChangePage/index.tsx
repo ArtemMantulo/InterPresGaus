@@ -19,8 +19,8 @@ const CreatePage = (): ReactElement => {
     const [data, setData] = useState({
         name: "",
         url: "",
-        config: "",
-        config_viewer: "",
+        // config: "",
+        // config_viewer: "",
     });
     const params = useParams();
 
@@ -37,20 +37,20 @@ const CreatePage = (): ReactElement => {
                 id: params.id as string,
                 data: {
                     ...data,
-                    config: eval(
-                        "(" +
-                            data.config
-                                ?.replace(/,\s*}$/, "}")
-                                .replace(/^"|"$/g, "") +
-                            ")",
-                    ),
-                    config_viewer: eval(
-                        "(" +
-                            data.config_viewer
-                                ?.replace(/,\s*}$/, "}")
-                                .replace(/^"|"$/g, "") +
-                            ")",
-                    ),
+                    // config: eval(
+                    //     "(" +
+                    //         data.config
+                    //             ?.replace(/,\s*}$/, "}")
+                    //             .replace(/^"|"$/g, "") +
+                    //         ")",
+                    // ),
+                    // config_viewer: eval(
+                    //     "(" +
+                    //         data.config_viewer
+                    //             ?.replace(/,\s*}$/, "}")
+                    //             .replace(/^"|"$/g, "") +
+                    //         ")",
+                    // ),
                 },
             }),
         );
@@ -66,9 +66,9 @@ const CreatePage = (): ReactElement => {
         if (frame) {
             setData({
                 name: frame.name,
-                config: frame.config,
+                // config: frame.config,
                 url: frame.url,
-                config_viewer: frame.config_viewer,
+                // config_viewer: frame.config_viewer,
             });
         }
     }, [frame]);

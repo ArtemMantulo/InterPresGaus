@@ -15,8 +15,8 @@ const Create = (): ReactElement => {
     const [data, setData] = useState({
         url: "",
         name: "",
-        config: "",
-        config_viewer: "",
+        // config: "",
+        // config_viewer: "",
     });
 
     const change = (e: any) => {
@@ -30,20 +30,20 @@ const Create = (): ReactElement => {
         dispatch(
             createFrame({
                 ...data,
-                config: eval(
-                    "(" +
-                        data.config
-                            ?.replace(/,\s*}$/, "}")
-                            .replace(/^"|"$/g, "") +
-                        ")",
-                ),
-                config_viewer: eval(
-                    "(" +
-                        data.config_viewer
-                            ?.replace(/,\s*}$/, "}")
-                            .replace(/^"|"$/g, "") +
-                        ")",
-                ),
+                // config: eval(
+                //     "(" +
+                //         data.config
+                //             ?.replace(/,\s*}$/, "}")
+                //             .replace(/^"|"$/g, "") +
+                //         ")",
+                // ),
+                // config_viewer: eval(
+                //     "(" +
+                //         data.config_viewer
+                //             ?.replace(/,\s*}$/, "}")
+                //             .replace(/^"|"$/g, "") +
+                //         ")",
+                // ),
             }),
         );
     };

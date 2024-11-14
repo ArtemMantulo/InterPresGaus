@@ -15,7 +15,7 @@ const Main = (): ReactElement => {
 
     return (
         <div className={styles["wrap"]}>
-            <h2>Список созданных фреймов test</h2>
+            <h2>Список созданных фреймов</h2>
             <FramesList frames={frames} />
         </div>
     );

@@ -39,21 +39,21 @@ export class FramesController {
         {
             name,
             url,
-            config,
-            config_viewer,
+            // config,
+            // config_viewer,
         }: {
             name: string;
             url: string;
-            config: Record<string, any>;
-            config_viewer: Record<string, any>;
+            // config: Record<string, any>;
+            // config_viewer: Record<string, any>;
         },
     ) {
         if (name.trim()) {
             return this.framesService.createFrame(
                 name,
                 url,
-                config,
-                config_viewer,
+                // config,
+                // config_viewer,
             );
         } else {
             throw new HttpException("eror", HttpStatus.NOT_ACCEPTABLE);

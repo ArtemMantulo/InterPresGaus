@@ -15,8 +15,8 @@ const frameSlice = createSlice({
         builder.addCase(getFrame.fulfilled, (state, action) => {
             state.frame = {
                 ...action.payload,
-                config: JSON.stringify(action.payload.config),
-                config_viewer: JSON.stringify(action.payload.config_viewer),
+                // config: JSON.stringify(action.payload.config),
+                // config_viewer: JSON.stringify(action.payload.config_viewer),
             };
         });
     },
