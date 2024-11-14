@@ -36,7 +36,7 @@ jobs:
         username: root
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
-          cd /path/to/your/app  # путь к директории на сервере
+          cd ./3d-framer2  # путь к директории на сервере
           git pull origin main
           docker-compose -f docker-compose.prod.yml pull
           docker-compose -f docker-compose.prod.yml up -d --remove-orphans
