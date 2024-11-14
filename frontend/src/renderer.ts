@@ -24,7 +24,7 @@ export const renderer = (url: string) => {
 
     // Инициализация Viewer
     const viewer = new GaussianSplats3D.Viewer({
-        //sharedMemoryForWorkers: false, // этот параметр лучше не трогать, упадет отображенеи фреймов через вставку на другие страницы
+        sharedMemoryForWorkers: false, // этот параметр лучше не трогать, упадет отображенеи фреймов через вставку на другие страницы
         sceneFadeInRateMultiplier: 10,
         threeScene: threeScene,
         renderer: renderer3D,
@@ -63,9 +63,12 @@ export const renderer = (url: string) => {
 
     // Загружаем внешний файл и добавляем его в Viewer
     viewer
-        .addSplatScene(url, {
-            progressiveLoad: true,
-        })
+        .addSplatScene(
+            url /* из места вызова функции прокидывается ссылка из БД */,
+            {
+                progressiveLoad: true,
+            },
+        )
         .then(() => {
             animate();
         });
