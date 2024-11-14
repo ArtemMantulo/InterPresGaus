@@ -38,4 +38,4 @@ jobs:
         script: |
           cd ./3d-framer2  # путь к директории на сервере
           git pull origin main
-          docker compose up -d --remove-orphans
+          docker compose up -d --build --remove-orphans
