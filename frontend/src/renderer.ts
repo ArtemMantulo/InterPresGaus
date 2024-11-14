@@ -24,7 +24,7 @@ export const renderer = (url: string) => {
 
     // Инициализация Viewer
     const viewer = new GaussianSplats3D.Viewer({
-        // sharedMemoryForWorkers: false, // этот параметр лучше не трогать, упадет отображенеи фреймов через вставку на другие страницы
+        sharedMemoryForWorkers: false, // этот параметр лучше не трогать, упадет отображенеи фреймов через вставку на другие страницы
         sceneFadeInRateMultiplier: 10,
         threeScene: threeScene,
         renderer: renderer3D,
