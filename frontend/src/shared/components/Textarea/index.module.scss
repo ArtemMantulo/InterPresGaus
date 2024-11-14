@@ -1,0 +1,16 @@
+.text {
+    display: block;
+    padding: 10px;
+    width: 100%;
+    border: 2px solid grey;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    resize: none;
+    white-space: pre;
+
+    &:focus,
+    &:hover {
+        outline: none;
+        border-color: black;
+    }
+}

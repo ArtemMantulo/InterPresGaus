@@ -1,0 +1,44 @@
+.frame {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-bottom: 8px;
+    border: 2px solid #a2a2a2;
+    border-radius: 8px;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    transition: background-color .3s;
+
+    &-text {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        &_name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        &_id {
+            font-size: 14px;
+            color: #3e3e3e;
+        }
+    }
+
+    &-icon {
+        width: 20px;
+        height: 20px;
+        transform: rotate(-90deg);
+    }
+
+    &-icons {
+        display: flex;
+        align-items: center;
+        z-index: 2;
+    }
+
+    &:hover {
+        background-color: #e3e3e3;
+    }
+
+}
