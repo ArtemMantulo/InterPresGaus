@@ -1,0 +1,42 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main  # Запускается при пуше в ветку main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push backend image
+      run: |
+        docker build -t arkadiy795/backend:latest -f backend/Dockerfile ./backend
+        docker push arkadiy795/backend:latest
+
+    - name: Build and push frontend image
+      run: |
+        docker build -t arkadiy795/frontend:latest -f frontend/Dockerfile ./frontend
+        docker push arkadiy795/frontend:latest
+
+    - name: Deploy to Server
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: root
+        password: ${{ secrets.SERVER_PASSWORD }}
+        script: |
+          cd /path/to/your/app  # путь к директории на сервере
+          git pull origin main
+          docker-compose -f docker-compose.prod.yml pull
+          docker-compose -f docker-compose.prod.yml up -d --remove-orphans
