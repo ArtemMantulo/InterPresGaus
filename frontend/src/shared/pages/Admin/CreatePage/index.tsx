@@ -62,7 +62,7 @@ const Create = (): ReactElement => {
                     onChange={change}
                 />
                 <InputText placeholder="URL" name="url" onChange={change} />
-                <Textarea
+                {/* <Textarea
                     onChange={change}
                     name="config"
                     rows={10}
@@ -73,7 +73,7 @@ const Create = (): ReactElement => {
                     name="config_viewer"
                     rows={10}
                     placeholder="Конфиг addSplatScene (шаблон: { {showLoadingUI: true,progressiveLoad: true,position: [0, 1, 0],rotation: [0, 0, 0, 1],scale: [1.0, 1.0, 1.0],} })"
-                />
+                /> */}
                 <Button types="primary" onClick={create}>
                     Создать запись
                 </Button>

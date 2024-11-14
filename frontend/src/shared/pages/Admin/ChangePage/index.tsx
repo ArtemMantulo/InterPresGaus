@@ -89,7 +89,7 @@ const CreatePage = (): ReactElement => {
                     name="url"
                     onChange={change}
                 />
-                <Textarea
+                {/* <Textarea
                     rows={10}
                     placeholder="Конфиг Viewer (шаблон: { {sharedMemoryForWorkers: false,cameraUp: [0, -1, 0],initialCameraPosition: [-2, -2, 4],initialCameraLookAt: [0, 1.65, 0]} })"
                     onChange={change}
@@ -103,7 +103,7 @@ const CreatePage = (): ReactElement => {
                     defaultValue={data.config_viewer}
                     rows={10}
                     placeholder="Конфиг addSplatScene (шаблон: { {showLoadingUI: true,progressiveLoad: true,position: [0, 1, 0],rotation: [0, 0, 0, 1],scale: [1.0, 1.0, 1.0],} })"
-                />
+                /> */}
                 <Button types="primary" onClick={changeHandler}>
                     Сохранить
                 </Button>
