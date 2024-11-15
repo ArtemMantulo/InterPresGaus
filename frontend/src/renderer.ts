@@ -12,7 +12,7 @@ export const renderer = (url: string) => {
 
     // Рендер для 3D сцены
     const renderer3D = new THREE.WebGLRenderer({
-        antialias: false,
+        antialias: true,
         alpha: true,
     });
     renderer3D.setSize(renderWidth, renderHeight);
