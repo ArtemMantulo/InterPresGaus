@@ -67,6 +67,7 @@ export const renderer = (url: string) => {
             url /* из места вызова функции прокидывается ссылка из БД */,
             {
                 progressiveLoad: true,
+                showLoadingUI: false,
             },
         )
        .then(() => {
