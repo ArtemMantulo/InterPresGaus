@@ -69,19 +69,19 @@ export const renderer = (url: string) => {
                 progressiveLoad: true,
             },
         )
-        .then(() => {
-            animate();
-        });
+       .then(() => {
+        animate();
+    })
+    .catch((error) => {
+        console.error("Ошибка при загрузке сцены:", error);
+    });
 
-    // Анимация сцены
-    function animate() {
-        requestAnimationFrame(() => setTimeout(animate, 1000 / 30)); // Ограничение FPS до 30
+// Анимация сцены
+function animate() {
+    // Обновляем сцену
+    viewer.update();
+    viewer.render();
 
-        viewer.update();
-        viewer.render();
-    }
-
-    animate();
-
-    // КОНЕЦ БЕЗОПАСНОЙ ЗОНЫ
-};
+    // Запрашиваем следующий кадр
+    requestAnimationFrame(animate);
+}
