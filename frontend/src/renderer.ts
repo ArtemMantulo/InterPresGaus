@@ -82,3 +82,6 @@ function animate() {
 }
 
 animate();
+
+// КОНЕЦ БЕЗОПАСНОЙ ЗОНЫ
+}
