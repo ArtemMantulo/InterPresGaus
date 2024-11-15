@@ -70,18 +70,15 @@ export const renderer = (url: string) => {
             },
         )
        .then(() => {
-        animate();
-    })
-    .catch((error) => {
-        console.error("Ошибка при загрузке сцены:", error);
-    });
+    animate();
+});
 
 // Анимация сцены
 function animate() {
-    // Обновляем сцену
+    requestAnimationFrame(() => setTimeout(animate, 1000 / 60)); // Ограничение FPS до 60
+
     viewer.update();
     viewer.render();
-
-    // Запрашиваем следующий кадр
-    requestAnimationFrame(animate);
 }
+
+animate();
