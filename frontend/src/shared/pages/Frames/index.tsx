@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { getFrame } from "@/shared/store/slices/frame/thunks";
 import { selectFrame } from "@/shared/store/slices/frame";
 import { useParams } from "next/navigation";
-import { renderer } from "@/renderer";
+// import { renderer } from "@/renderer";
 
 const Frames = (): ReactElement => {
     const dispatch = useDispatch();
@@ -19,7 +19,10 @@ const Frames = (): ReactElement => {
 
     useEffect(() => {
         if (frame?.url) {
-            renderer(frame.url);
+            // renderer(frame.url);
+            import(
+                `../../../renderer${frame.renderer_id ? `_${frame.renderer_id}` : ""}`
+            ).then((mod) => mod.renderer(frame.url));
             return () => {
                 document.querySelector("body > canvas")?.remove();
             };

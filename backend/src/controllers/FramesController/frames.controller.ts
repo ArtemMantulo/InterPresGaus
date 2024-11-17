@@ -36,25 +36,10 @@ export class FramesController {
     @Post("frames/create")
     createFrame(
         @Body()
-        {
-            name,
-            url,
-            // config,
-            // config_viewer,
-        }: {
-            name: string;
-            url: string;
-            // config: Record<string, any>;
-            // config_viewer: Record<string, any>;
-        },
+        data: Frames,
     ) {
-        if (name.trim()) {
-            return this.framesService.createFrame(
-                name,
-                url,
-                // config,
-                // config_viewer,
-            );
+        if (data.name.trim()) {
+            return this.framesService.createFrame(data);
         } else {
             throw new HttpException("eror", HttpStatus.NOT_ACCEPTABLE);
         }

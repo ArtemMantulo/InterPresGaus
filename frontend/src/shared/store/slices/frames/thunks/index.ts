@@ -1,4 +1,4 @@
-import { IFrames } from "@/shared/types/frames";
+import { IFrame, IFrames } from "@/shared/types/frames";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getFrames = createAsyncThunk(
@@ -32,7 +32,7 @@ export const deleteFrame = createAsyncThunk(
 
 export const createFrame = createAsyncThunk(
     "frames/createFrame",
-    async (data: any, { rejectWithValue }) => {
+    async (data: Partial<IFrame>, { rejectWithValue }) => {
         try {
             return await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/api/frames/create/`,

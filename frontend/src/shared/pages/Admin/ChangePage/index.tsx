@@ -19,6 +19,7 @@ const CreatePage = (): ReactElement => {
     const [data, setData] = useState({
         name: "",
         url: "",
+        renderer_id: "",
         // config: "",
         // config_viewer: "",
     });
@@ -37,6 +38,7 @@ const CreatePage = (): ReactElement => {
                 id: params.id as string,
                 data: {
                     ...data,
+                    renderer_id: Number(data.renderer_id),
                     // config: eval(
                     //     "(" +
                     //         data.config
@@ -68,6 +70,7 @@ const CreatePage = (): ReactElement => {
                 name: frame.name,
                 // config: frame.config,
                 url: frame.url,
+                renderer_id: String(frame.renderer_id),
                 // config_viewer: frame.config_viewer,
             });
         }
@@ -87,6 +90,12 @@ const CreatePage = (): ReactElement => {
                     defaultValue={data.url}
                     placeholder="URL"
                     name="url"
+                    onChange={change}
+                />
+                <InputText
+                    defaultValue={data.renderer_id}
+                    placeholder="ID файла для рендера (дефолтное значение - 0, тогда будет браться файл renderer.ts)"
+                    name="renderer_id"
                     onChange={change}
                 />
                 {/* <Textarea

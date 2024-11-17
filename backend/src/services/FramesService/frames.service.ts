@@ -10,17 +10,9 @@ export class FramesService {
         private readonly framesRepository: Repository<Frames>,
     ) {}
 
-    async createFrame(
-        name: string,
-        url: string,
-        // config: Record<string, any>,
-        // config_viewer: Record<string, any>,
-    ): Promise<Frames> {
+    async createFrame(data: Frames): Promise<Frames> {
         const deal = this.framesRepository.create({
-            name,
-            url,
-            // config,
-            // config_viewer,
+            ...data,
         });
         return this.framesRepository.save(deal);
     }

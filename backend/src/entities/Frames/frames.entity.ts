@@ -11,6 +11,9 @@ export class Frames {
     @Column()
     url: string;
 
+    @Column({ default: 0 })
+    renderer_id: number;
+
     // @Column("jsonb", { nullable: true })
     // config: Record<string, any>;
 

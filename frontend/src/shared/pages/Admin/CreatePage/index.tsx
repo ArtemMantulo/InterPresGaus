@@ -15,6 +15,7 @@ const Create = (): ReactElement => {
     const [data, setData] = useState({
         url: "",
         name: "",
+        renderer_id: "",
         // config: "",
         // config_viewer: "",
     });
@@ -30,6 +31,7 @@ const Create = (): ReactElement => {
         dispatch(
             createFrame({
                 ...data,
+                renderer_id: data.renderer_id ? Number(data.renderer_id) : 0,
                 // config: eval(
                 //     "(" +
                 //         data.config
@@ -62,6 +64,12 @@ const Create = (): ReactElement => {
                     onChange={change}
                 />
                 <InputText placeholder="URL" name="url" onChange={change} />
+                <InputText
+                    defaultValue=""
+                    placeholder="ID файла для рендера (дефолтное значение - 0, тогда будет браться файл renderer.ts)"
+                    name="renderer_id"
+                    onChange={change}
+                />
                 {/* <Textarea
                     onChange={change}
                     name="config"
