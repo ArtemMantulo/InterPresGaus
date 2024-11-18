@@ -16,7 +16,7 @@ export const renderer = (url: string) => {
         alpha: true,
     });
     renderer3D.setSize(renderWidth, renderHeight);
-    renderer3D.setClearColor(0x000000, 1); //
+    renderer3D.setClearColor(0x000000, 0); //
     document.body.appendChild(renderer3D.domElement); //
 
     // Создаем основную сцену для 3D объектов
