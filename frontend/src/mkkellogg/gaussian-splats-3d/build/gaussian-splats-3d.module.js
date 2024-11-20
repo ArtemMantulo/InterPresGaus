@@ -402,7 +402,7 @@ class UncompressedSplatArray {
     }
 }
 
-class Constants {
+export class Constants {
 
     static DefaultSplatSortDistanceMapPrecision = 16;
     static MemoryPageSize = 65536;
@@ -5466,11 +5466,9 @@ const cancelFade = (interval) => {
 const STANDARD_FADE_DURATION = 500;
 
 class LoadingSpinner {
-
     static elementIDGen = 0;
 
     constructor(message, container) {
-
         this.taskIDGen = 0;
         this.elementID = LoadingSpinner.elementIDGen++;
 
@@ -5479,6 +5477,7 @@ class LoadingSpinner {
         this.message = message || 'Loading...';
         this.container = container || document.body;
 
+        // Создаем контейнеры для спиннера
         this.spinnerContainerOuter = document.createElement('div');
         this.spinnerContainerOuter.className = `spinnerOuterContainer${this.elementID}`;
         this.spinnerContainerOuter.style.display = 'none';
@@ -5495,21 +5494,29 @@ class LoadingSpinner {
         this.spinnerContainerMin.className = `spinnerContainerMin${this.elementID}`;
         this.spinnerMin = document.createElement('div');
         this.spinnerMin.classList.add(`spinner${this.elementID}`, `spinnerMin${this.elementID}`);
+        
+        // Добавляем надпись "InterPres"
+        this.interPresText = document.createElement('div');
+        this.interPresText.classList.add(`interPresText${this.elementID}`);
+        this.interPresText.innerHTML = "InterPres";
+
         this.messageContainerMin = document.createElement('div');
         this.messageContainerMin.classList.add(`messageContainer${this.elementID}`, `messageContainerMin${this.elementID}`);
         this.messageContainerMin.innerHTML = this.message;
 
+        // Добавляем элементы на страницу
         this.spinnerContainerPrimary.appendChild(this.spinnerPrimary);
         this.spinnerContainerPrimary.appendChild(this.messageContainerPrimary);
         this.spinnerContainerOuter.appendChild(this.spinnerContainerPrimary);
 
         this.spinnerContainerMin.appendChild(this.spinnerMin);
         this.spinnerContainerMin.appendChild(this.messageContainerMin);
+        this.spinnerContainerMin.appendChild(this.interPresText); // Добавляем текст "InterPres"
         this.spinnerContainerOuter.appendChild(this.spinnerContainerMin);
 
+        // Добавляем стили
         const style = document.createElement('style');
         style.innerHTML = `
-
             .spinnerOuterContainer${this.elementID} {
                 width: 100%;
                 height: 100%;
@@ -5522,35 +5529,34 @@ class LoadingSpinner {
 
             .messageContainer${this.elementID} {
                 height: 20px;
-                font-family: arial;
+                font-family: 'Inter', Arial, sans-serif; /* Устанавливаем шрифт Inter (или Arial как запасной) */
                 font-size: 12pt;
-                color: #ffffff;
+                color: #000000; /* Черный текст */
                 text-align: center;
                 vertical-align: middle;
             }
 
             .spinner${this.elementID} {
                 padding: 15px;
-                background: #07e8d6;
+                background: #000000; /* Черный цвет спиннера */
                 z-index:99999;
-            
                 aspect-ratio: 1;
                 border-radius: 50%;
                 --_m: 
                     conic-gradient(#0000,#000),
                     linear-gradient(#000 0 0) content-box;
                 -webkit-mask: var(--_m);
-                    mask: var(--_m);
+                mask: var(--_m);
                 -webkit-mask-composite: source-out;
-                    mask-composite: subtract;
+                mask-composite: subtract;
                 box-sizing: border-box;
                 animation: load 1s linear infinite;
             }
 
             .spinnerContainerPrimary${this.elementID} {
                 z-index:99999;
-                background-color: rgba(128, 128, 128, 0.75);
-                border: #666666 1px solid;
+                background-color: #FFFFFF; /* Белый фон */
+                border: #000000 2px solid; /* Черная обводка */
                 border-radius: 5px;
                 padding-top: 20px;
                 padding-bottom: 10px;
@@ -5574,8 +5580,8 @@ class LoadingSpinner {
 
             .spinnerContainerMin${this.elementID} {
                 z-index:99999;
-                background-color: rgba(128, 128, 128, 0.75);
-                border: #666666 1px solid;
+                background-color: #FFFFFF; /* Белый фон */
+                border: #000000 2px solid; /* Черная обводка */
                 border-radius: 5px;
                 padding-top: 20px;
                 padding-bottom: 15px;
@@ -5585,7 +5591,7 @@ class LoadingSpinner {
                 left: 50%;
                 transform: translate(-50%, 0);
                 display: flex;
-                flex-direction: left;
+                flex-direction: row; /* Устанавливаем элементы в ряд */
                 pointer-events: auto;
                 min-width: 250px;
             }
@@ -5604,19 +5610,30 @@ class LoadingSpinner {
             .messageContainerMin${this.elementID} {
                 padding-top: 15px;
             }
+
+            /* Стиль для текста "InterPres" */
+            .interPresText${this.elementID} {
+                font-family: 'Inter', Arial, sans-serif;
+                font-size: 10pt;
+                color: #000000; /* Черный цвет текста */
+                text-align: center;
+                margin-top: 5px;
+                z-index: 1000;  /* Убедитесь, что текст находится поверх других элементов */
+            }
             
             @keyframes load {
-                to{transform: rotate(1turn)}
+                to { transform: rotate(1turn); }
             }
-
         `;
         this.spinnerContainerOuter.appendChild(style);
         this.container.appendChild(this.spinnerContainerOuter);
 
+        // Изначально скрываем спиннер
         this.setMinimized(false, true);
-
         this.fadeTransitions = [];
+
     }
+
 
     addTask(message) {
         const newTask = {
@@ -5709,11 +5726,8 @@ class LoadingSpinner {
 class LoadingProgressBar {
 
     constructor(container) {
-
         this.idGen = 0;
-
         this.tasks = [];
-
         this.container = container || document.body;
 
         this.progressBarContainerOuter = document.createElement('div');
@@ -5766,7 +5780,7 @@ class LoadingProgressBar {
                 width: 100%;
                 height: 25px;
                 border-radius:10px;
-                background-color: rgba(128, 128, 128, 0.75);
+                background-color: #000000; /* Черный фон прогресса */
                 border: #444444 1px solid;
                 box-shadow: inset 0 0 10px #333333;
             }
@@ -5775,8 +5789,21 @@ class LoadingProgressBar {
                 height: 25px;
                 width: 0px;
                 border-radius:10px;
-                background-color: rgba(0, 200, 0, 0.75);
-                box-shadow: inset 0 0 10px #003300;
+                background-color: #ffffff; /* Белый цвет прогресса */
+                box-shadow: inset 0 0 10px #cccccc;
+                animation: progressAnimation 2s linear infinite;
+            }
+
+            @keyframes progressAnimation {
+                0% {
+                    width: 0;
+                }
+                50% {
+                    width: 50%;
+                }
+                100% {
+                    width: 100%;
+                }
             }
 
         `;
@@ -9042,6 +9069,11 @@ class SplatMesh extends THREE.Mesh {
                 this.material = SplatMaterial2D.build(this.dynamicMode, this.enableOptionalEffects,
                                                       this.splatScale, this.pointCloudModeEnabled, this.minSphericalHarmonicsDegree);
             }
+            this.material.uniforms.hue = { value: 0.0 }; // Установить начальное значение hue
+            this.material.uniforms.splatColor = { value: new THREE.Color(1.0, 0.0, 0.0) }; // Установить начальный цвет
+            
+            // Сообщить Three.js, что униформы обновились
+            this.material.uniformsNeedUpdate = true;
 
             const indexMaps = SplatMesh.buildSplatIndexMaps(splatBuffers);
             this.globalSplatIndexToLocalSplatIndexMap = indexMaps.localSplatIndexMap;
@@ -9948,6 +9980,7 @@ class SplatMesh extends THREE.Mesh {
 
     }();
 
+    
     setSplatScale(splatScale = 1) {
         this.splatScale = splatScale;
         this.material.uniforms.splatScale.value = splatScale;
@@ -11952,6 +11985,7 @@ class Viewer {
         this.onSplatMeshChangedCallback = callback;
     }
 
+    
     onKeyDown = function() {
 
         const forward = new THREE.Vector3();
@@ -12016,6 +12050,65 @@ class Viewer {
         };
 
     }();
+    animatePointCloudToSplats() {
+        if (!this.splatMesh || !this.splatMesh.material || !this.splatMesh.material.uniforms) {
+            console.error("Ошибка: SplatMesh или его параметры не инициализированы.");
+            return;
+        }
+    
+        const uniforms = this.splatMesh.material.uniforms;
+    
+        // Проверяем необходимые параметры
+        if (!uniforms.splatScale || uniforms.pointCloudModeEnabled === undefined || !uniforms.visibleRegionRadius) {
+            console.error("Ошибка: Необходимые параметры (splatScale, pointCloudModeEnabled или visibleRegionRadius) отсутствуют.");
+            console.log("Доступные uniforms:", Object.keys(uniforms));
+            return;
+        }
+    
+        // Начальные параметры
+        uniforms.splatScale.value = 0.1; // Начальный размер сплатов
+        uniforms.pointCloudModeEnabled.value = true; // Включаем облако точек
+        uniforms.visibleRegionRadius.value = 0.0; // Начальный радиус видимости
+    
+        const duration = 3000; // Длительность анимации (для обоих процессов)
+        const startTime = performance.now();
+    
+        const animate = (time) => {
+            const elapsed = time - startTime;
+            const t = Math.min(elapsed / duration, 1); // Нормализуем время
+    
+            // Анимация изменения масштаба сплатов
+            uniforms.splatScale.value = 0.1 + t * 0.9;
+    
+            // Анимация изменения радиуса видимости
+            uniforms.visibleRegionRadius.value = t * 10.0; // Пример: радиус от 0 до 10
+    
+            // Выключаем облако точек ближе к концу анимации
+            if (t > 0.9) {
+                uniforms.pointCloudModeEnabled.value = false;
+            }
+    
+            // Завершаем анимацию
+            if (t < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                console.log("Анимация завершена.");
+            }
+        };
+    
+        requestAnimationFrame(animate);
+    }
+    
+
+
+
+
+    
+
+    
+    
+
+
 
     onMouseMove(mouse) {
         this.mousePosition.set(mouse.offsetX, mouse.offsetY);
@@ -12248,7 +12341,7 @@ class Viewer {
         let loadingUITaskId = null;
         if (showLoadingUI) {
             this.loadingSpinner.removeAllTasks();
-            loadingUITaskId = this.loadingSpinner.addTask('Downloading...');
+            loadingUITaskId = this.loadingSpinner.addTask('InterPres');
         }
         const hideLoadingUI = () => {
             this.loadingProgressBar.hide();
