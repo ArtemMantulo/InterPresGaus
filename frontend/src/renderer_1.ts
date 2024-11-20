@@ -28,8 +28,6 @@ export const renderer = (url: string) => {
         sceneFadeInRateMultiplier: 10,
         threeScene: threeScene,
         renderer: renderer3D,
-        splatSortDistanceMapPrecision: 32,
-        inMemoryCompressionLevel: 1,
         renderMode: GaussianSplats3D.RenderMode.OnChange,
 
         camera: new THREE.PerspectiveCamera(
