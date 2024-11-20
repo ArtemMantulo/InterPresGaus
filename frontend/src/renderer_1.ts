@@ -6,43 +6,44 @@ import * as THREE from "three";
 export const renderer = (url: string) => {
     // НАЧАЛО БЕЗОПАСНОЙ ЗОНЫ
 
- // Создаем основную сцену для 3D объектов
     const threeScene = new THREE.Scene();
 
-    // Инициализация Viewer
+    // Добавляем освещение в сцену
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    threeScene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 10, 7.5);
+    threeScene.add(directionalLight);
+
+    // Создаем инстанс Viewer с параметрами камеры
     const viewer = new GaussianSplats3D.Viewer({
-        sharedMemoryForWorkers: false, // этот параметр лучше не трогать, упадет отображенеи фреймов через вставку на другие страницы
-        sceneFadeInRateMultiplier: 10,
-        threeScene: threeScene,
-        renderer: renderer3D,
-        renderMode: GaussianSplats3D.RenderMode.OnChange,
-
-        //useBuiltInControls: false,  // Не используем встроенные контролы
+        threeScene,
+        sharedMemoryForWorkers: false,
+        cameraUp: [0, -1, 0],
+        initialCameraPosition: [-2, -2, 4],
+        initialCameraLookAt: [0, 1.65, 0],
     });
-
-
-    // Загружаем внешний файл и добавляем его в Viewer
+    // Загружаем сцену
     viewer
-        .addSplatScene(
-            url /* из места вызова функции прокидывается ссылка из БД */,
-            {
-                progressiveLoad: true,
-                showLoadingUI: true,
-            },
-        )
+        .addSplatScene(url, {
+            showLoadingUI: true,
+            progressiveLoad: true,
+            position: [0, 1, 0],
+            rotation: [0, 0, 0, 1],
+            scale: [1.0, 1.0, 1.0],
+        })
         .then(() => {
-            animate();
+            viewer.start();
+        })
+        .catch((error: any) => {
+            console.error("Ошибка загрузки сцены:", error);
         });
 
-    // Анимация сцены
-    function animate() {
-        requestAnimationFrame(() => setTimeout(animate, 1000 / 60)); // Ограничение FPS до 60
-
+    // Обновляем сцены в цикле рендеринга
+    viewer.renderer.setAnimationLoop(() => {
         viewer.update();
-        viewer.render();
-    }
-
-    animate();
+    });
 
     // КОНЕЦ БЕЗОПАСНОЙ ЗОНЫ
 };
