@@ -17,24 +17,23 @@ export const renderer = (url: string) => {
     'initialCameraLookAt': [0, 1, 0]
 });
    // Загружаем внешний файл и добавляем его в Viewer
-    viewer
-        .addSplatScene(
-            url /* из места вызова функции прокидывается ссылка из БД */,
-            {
-                progressiveLoad: true,
-                showLoadingUI: false,
-            },
-        )
-        .then(() => {
-            animate();
-        });
+   viewer
+    .addSplatScene(
+        url, // Ссылка из БД
+        {
+            progressiveLoad: true,
+            showLoadingUI: false,
+        }
+    )
+    .then(() => {
+        viewer.start();
 
-.then(() => {
-    viewer.start();
-})
-.catch(error => {
-    console.error("Ошибка при загрузке сцены:", error);
-});
+        // Запускаем анимацию перехода от точек к сплатам
+        viewer.animatePointCloudToSplats();
+    })
+    .catch((error) => {
+        console.error("Ошибка при загрузке сцены:", error);
+    });
 
 
     // КОНЕЦ БЕЗОПАСНОЙ ЗОНЫ
