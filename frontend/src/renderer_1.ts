@@ -6,83 +6,44 @@ import * as THREE from "three";
 export const renderer = (url: string) => {
     // НАЧАЛО БЕЗОПАСНОЙ ЗОНЫ
 
-    // Устанавливаем размеры рендера напрямую
-    const renderWidth = window.innerWidth; // Автоматический размер по ширине окна
-    const renderHeight = window.innerHeight; // Автоматический размер по высоте окна
+    // Создаем новую сцену Three.js
+const threeScene = new THREE.Scene();
 
-    // Рендер для 3D сцены
-    const renderer3D = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-    });
-    renderer3D.setSize(renderWidth, renderHeight);
-    renderer3D.setClearColor(0x000000, 1); //
-    document.body.appendChild(renderer3D.domElement); //
+// Добавляем освещение в сцену
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+threeScene.add(ambientLight);
 
-    // Создаем основную сцену для 3D объектов
-    const threeScene = new THREE.Scene();
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 10, 7.5);
+threeScene.add(directionalLight);
 
-    // Инициализация Viewer
-    const viewer = new GaussianSplats3D.Viewer({
-        sharedMemoryForWorkers: false, // этот параметр лучше не трогать, упадет отображенеи фреймов через вставку на другие страницы
-        sceneFadeInRateMultiplier: 10,
-        threeScene: threeScene,
-        renderer: renderer3D,
-        splatSortDistanceMapPrecision: 32,
-        inMemoryCompressionLevel: 1,
-        renderMode: GaussianSplats3D.RenderMode.OnChange,
+// Создаем инстанс Viewer с параметрами камеры
+const viewer = new GaussianSplats3D.Viewer({
+    threeScene,
+    cameraUp: [0, -1, 0],
+    initialCameraPosition: [-2, -2, 4],
+    initialCameraLookAt: [0, 1.65, 0]
+});
 
-        camera: new THREE.PerspectiveCamera(
-            65,
-            renderWidth / renderHeight,
-            0.1,
-            500,
-        ),
-        //useBuiltInControls: false,  // Не используем встроенные контролы
-    });
+// Загружаем сцену
+viewer.addSplatScene('https://huggingface.co/spaces/Vision70s/GaussianVision70s/resolve/main/archViz_compressed.ply', {
+    showLoadingUI: true,
+    progressiveLoad: true,
+    position: [0, 1, 0],
+    rotation: [0, 0, 0, 1],
+    scale: [1.0, 1.0, 1.0]
+})
+.then(() => {
+    viewer.start();
+})
+.catch(error => {
+    console.error("Ошибка загрузки сцены:", error);
+});
 
-    const camera = viewer.camera;
-    camera.position.set(-1, -4, 6);
-    camera.up.set(0, -1, 0).normalize();
-    camera.lookAt(new THREE.Vector3(0, 4, 0));
-
-    // Создаем первый куб - белый, меньшего размера, с регулируемой позицией
-    const smallCubeGeometry = new THREE.BoxGeometry(4.4, 1.8, 0.3); // Размеры 0.5 x 0.5 x 0.5
-    const whiteMaterial = new THREE.MeshBasicMaterial({
-        color: "#e1dcdb",
-    }); // Белый цвет
-    const smallCube = new THREE.Mesh(smallCubeGeometry, whiteMaterial);
-    smallCube.position.set(-0.1, -0.75, -1.93); // Позиция
-    threeScene.add(smallCube); // Добавляем в threeScene
-
-    // Создаем второй куб
-    const largeCubeGeometry = new THREE.BoxGeometry(4.4, 0.3, 2.2);
-    const largeCube = new THREE.Mesh(largeCubeGeometry, whiteMaterial);
-    largeCube.position.set(-0.1, 0, -0.76); // Позиция в центре
-    threeScene.add(largeCube); // Добавляем в threeScene
-
-    // Загружаем внешний файл и добавляем его в Viewer
-    viewer
-        .addSplatScene(
-            url /* из места вызова функции прокидывается ссылка из БД */,
-            {
-                progressiveLoad: true,
-                showLoadingUI: false,
-            },
-        )
-        .then(() => {
-            animate();
-        });
-
-    // Анимация сцены
-    function animate() {
-        requestAnimationFrame(() => setTimeout(animate, 1000 / 60)); // Ограничение FPS до 60
-
-        viewer.update();
-        viewer.render();
-    }
-
-    animate();
+// Обновляем сцены в цикле рендеринга
+viewer.renderer.setAnimationLoop(() => {
+    viewer.update();
+});
 
     // КОНЕЦ БЕЗОПАСНОЙ ЗОНЫ
 };
