@@ -26,13 +26,21 @@ const viewer = new GaussianSplats3D.Viewer({
 });
 
 // Загружаем сцену
-viewer.addSplatScene('https://huggingface.co/spaces/Vision70s/GaussianVision70s/resolve/main/archViz_compressed.ply', {
-    showLoadingUI: true,
-    progressiveLoad: true,
-    position: [0, 1, 0],
-    rotation: [0, 0, 0, 1],
-    scale: [1.0, 1.0, 1.0]
-})
+    viewer
+        .addSplatScene(
+            url /* из места вызова функции прокидывается ссылка из БД */,
+            {
+                progressiveLoad: true,
+                showLoadingUI: false,
+                position: [0, 1, 0],
+                rotation: [0, 0, 0, 1],
+                scale: [1.0, 1.0, 1.0]
+            },
+        )
+        .then(() => {
+            animate();
+        });
+
 .then(() => {
     viewer.start();
 })
