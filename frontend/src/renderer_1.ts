@@ -7,33 +7,37 @@ export const renderer = (url: string) => {
     // НАЧАЛО БЕЗОПАСНОЙ ЗОНЫ
 
     const viewer = new GaussianSplats3D.Viewer({
-    'cameraUp': [0, -5, 0],
-    'initialCameraPosition': [1, 0, -3],
-    'inMemoryCompressionLevel': 1,
-    'renderMode': GaussianSplats3D.RenderMode.OnChange,
-    'sceneRevealMode': GaussianSplats3D.SceneRevealMode.Gradual,
-    'splatSortDistanceMapPrecision': 32,
-    'sceneFadeInRateMultiplier': 20,
-    'initialCameraLookAt': [0, 1, 0]
-});
-   // Загружаем внешний файл и добавляем его в Viewer
-   viewer
-    .addSplatScene(
-        url, // Ссылка из БД
-        {
+        cameraUp: [0, 1, 0], // Убедитесь, что направление камеры корректно
+        initialCameraPosition: [1, 0, -3],
+        inMemoryCompressionLevel: 1,
+        renderMode: GaussianSplats3D.RenderMode.OnChange,
+        sceneRevealMode: GaussianSplats3D.SceneRevealMode.Gradual,
+        splatSortDistanceMapPrecision: 32,
+        sceneFadeInRateMultiplier: 20,
+        initialCameraLookAt: [0, 1, 0],
+    });
+
+    viewer
+        .addSplatScene(url, {
             progressiveLoad: true,
             showLoadingUI: false,
-        }
-    )
-    .then(() => {
-        viewer.start();
+        })
+        .then(() => {
+            viewer.start();
 
-        // Запускаем анимацию перехода от точек к сплатам
-        viewer.animatePointCloudToSplats();
-    })
-    .catch((error) => {
-        console.error("Ошибка при загрузке сцены:", error);
-    });
+            // Запускаем цикл анимации
+            animate();
+        })
+        .catch((error) => {
+            console.error("Ошибка при загрузке сцены:", error);
+        });
+
+    // Цикл анимации
+    function animate() {
+        requestAnimationFrame(animate);
+        viewer.update(); // Обновляет Viewer
+    }
+};
 
 
     // КОНЕЦ БЕЗОПАСНОЙ ЗОНЫ
