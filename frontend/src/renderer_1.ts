@@ -20,6 +20,7 @@ export const renderer = (url: string) => {
     const viewer = new GaussianSplats3D.Viewer({
         threeScene,
         sharedMemoryForWorkers: false,
+        splatSortDistanceMapPrecision: 32,
         cameraUp: [0, -1, 0],
         initialCameraPosition: [-2, -2, 4],
         initialCameraLookAt: [0, 1.65, 0],
