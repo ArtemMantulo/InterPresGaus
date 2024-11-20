@@ -6,19 +6,6 @@ import * as THREE from "three";
 export const renderer = (url: string) => {
     // НАЧАЛО БЕЗОПАСНОЙ ЗОНЫ
 
-    // Устанавливаем размеры рендера напрямую
-    const renderWidth = window.innerWidth; // Автоматический размер по ширине окна
-    const renderHeight = window.innerHeight; // Автоматический размер по высоте окна
-
-    // Рендер для 3D сцены
-    const renderer3D = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-    });
-    renderer3D.setSize(renderWidth, renderHeight);
-    renderer3D.setClearColor(0x000000, 0); //
-    document.body.appendChild(renderer3D.domElement); //
-
     // Создаем основную сцену для 3D объектов
     const threeScene = new THREE.Scene();
 
