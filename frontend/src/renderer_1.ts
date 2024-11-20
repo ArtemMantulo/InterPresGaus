@@ -6,39 +6,43 @@ import * as THREE from "three";
 export const renderer = (url: string) => {
     // НАЧАЛО БЕЗОПАСНОЙ ЗОНЫ
 
+ // Создаем основную сцену для 3D объектов
+    const threeScene = new THREE.Scene();
+
+    // Инициализация Viewer
     const viewer = new GaussianSplats3D.Viewer({
-         sharedMemoryForWorkers: false,
-        cameraUp: [0, 1, 0], // Убедитесь, что направление камеры корректно
-        initialCameraPosition: [1, 0, -3],
-        inMemoryCompressionLevel: 1,
+        sharedMemoryForWorkers: false, // этот параметр лучше не трогать, упадет отображенеи фреймов через вставку на другие страницы
+        sceneFadeInRateMultiplier: 10,
+        threeScene: threeScene,
+        renderer: renderer3D,
         renderMode: GaussianSplats3D.RenderMode.OnChange,
-        sceneRevealMode: GaussianSplats3D.SceneRevealMode.Gradual,
-        sceneFadeInRateMultiplier: 20,
-        initialCameraLookAt: [0, 1, 0],
+
+        //useBuiltInControls: false,  // Не используем встроенные контролы
     });
 
-    viewer
-        .addSplatScene(url, {
-            progressiveLoad: true,
-            showLoadingUI: false,
-        })
-        .then(() => {
-            viewer.start();
 
-            // Запускаем цикл анимации
+    // Загружаем внешний файл и добавляем его в Viewer
+    viewer
+        .addSplatScene(
+            url /* из места вызова функции прокидывается ссылка из БД */,
+            {
+                progressiveLoad: true,
+                showLoadingUI: false,
+            },
+        )
+        .then(() => {
             animate();
-        })
-        .catch((error) => {
-            console.error("Ошибка при загрузке сцены:", error);
         });
 
-    // Цикл анимации
+    // Анимация сцены
     function animate() {
-        requestAnimationFrame(animate);
-        viewer.update(); // Обновляет Viewer
-    }
-};
+        requestAnimationFrame(() => setTimeout(animate, 1000 / 60)); // Ограничение FPS до 60
 
+        viewer.update();
+        viewer.render();
+    }
+
+    animate();
 
     // КОНЕЦ БЕЗОПАСНОЙ ЗОНЫ
 };
