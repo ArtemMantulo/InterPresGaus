@@ -7,12 +7,12 @@ export const renderer = (url: string) => {
     // НАЧАЛО БЕЗОПАСНОЙ ЗОНЫ
 
     const viewer = new GaussianSplats3D.Viewer({
+         sharedMemoryForWorkers: false,
         cameraUp: [0, 1, 0], // Убедитесь, что направление камеры корректно
         initialCameraPosition: [1, 0, -3],
         inMemoryCompressionLevel: 1,
         renderMode: GaussianSplats3D.RenderMode.OnChange,
         sceneRevealMode: GaussianSplats3D.SceneRevealMode.Gradual,
-        splatSortDistanceMapPrecision: 32,
         sceneFadeInRateMultiplier: 20,
         initialCameraLookAt: [0, 1, 0],
     });
