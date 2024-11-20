@@ -31,9 +31,6 @@ export const renderer = (url: string) => {
 
 .then(() => {
     viewer.start();
-
-    // Запускаем анимацию перехода от точек к сплатам
-    viewer.animatePointCloudToSplats();
 })
 .catch(error => {
     console.error("Ошибка при загрузке сцены:", error);
