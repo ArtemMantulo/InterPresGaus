@@ -46,20 +46,7 @@ export const renderer = (url: string) => {
     camera.up.set(0, -1, 0).normalize();
     camera.lookAt(new THREE.Vector3(0, 4, 0));
 
-    // Создаем первый куб - белый, меньшего размера, с регулируемой позицией
-    const smallCubeGeometry = new THREE.BoxGeometry(4.4, 1.8, 0.3); // Размеры 0.5 x 0.5 x 0.5
-    const whiteMaterial = new THREE.MeshBasicMaterial({
-        color: "#e1dcdb",
-    }); // Белый цвет
-    const smallCube = new THREE.Mesh(smallCubeGeometry, whiteMaterial);
-    smallCube.position.set(-0.1, -0.75, -1.93); // Позиция
-    threeScene.add(smallCube); // Добавляем в threeScene
 
-    // Создаем второй куб
-    const largeCubeGeometry = new THREE.BoxGeometry(4.4, 0.3, 2.2);
-    const largeCube = new THREE.Mesh(largeCubeGeometry, whiteMaterial);
-    largeCube.position.set(-0.1, 0, -0.76); // Позиция в центре
-    threeScene.add(largeCube); // Добавляем в threeScene
 
     // Загружаем внешний файл и добавляем его в Viewer
     viewer
