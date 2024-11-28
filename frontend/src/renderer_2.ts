@@ -23,7 +23,7 @@ export const renderer = (url: string) => {
         splatSortDistanceMapPrecision: 16,
         cameraUp: [0, -1, 0],
         initialCameraPosition: [5.39342, 0.66359, -0.53531],
-        initialCameraLookAt: [0.88732, 2.80143, -0.64037,
+        initialCameraLookAt: [0.88732, 2.80143, -0.64037],
     });
     // Загружаем сцену
     viewer
