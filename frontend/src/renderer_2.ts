@@ -27,6 +27,8 @@ export const renderer = (url: string) => {
         sceneFadeInRateMultiplier: 20,
         inMemoryCompressionLevel: 1,
         dynamicScene: false,
+        renderMode: GaussianSplats3D.RenderMode.OnChange,
+        sceneRevealMode: GaussianSplats3D.SceneRevealMode.Gradual,
     });
     // Загружаем сцену
     viewer
