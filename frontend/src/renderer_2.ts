@@ -6,16 +6,16 @@ import * as THREE from "three";
 export const renderer = (url: string) => {
     // НАЧАЛО БЕЗОПАСНОЙ ЗОНЫ
     
+    const threeScene = new THREE.Scene();
+
+    // Создаем инстанс Viewer с параметрами камеры
     const viewer = new GaussianSplats3D.Viewer({
-    'cameraUp': [0, -1, 0],
-    'initialCameraPosition': [5.21449, 1.15657, -1.18348],
-    'inMemoryCompressionLevel': 1,
-    'renderMode': GaussianSplats3D.RenderMode.OnChange,
-    'sceneRevealMode': GaussianSplats3D.SceneRevealMode.Gradual,
-    'splatSortDistanceMapPrecision': 16,
-    'sceneFadeInRateMultiplier': 20,
-    'dynamicScene': false,
-    'initialCameraLookAt': [	1.03942, 3.57931, -1.03766]
+        threeScene,
+        sharedMemoryForWorkers: false,
+        splatSortDistanceMapPrecision: 16,
+        cameraUp: [0, -1, 0],
+        initialCameraPosition: [5.39342, 0.66359, -0.53531],
+        initialCameraLookAt: [0.88732, 2.80143, -0.64037,
     });
     // Загружаем сцену
     viewer
