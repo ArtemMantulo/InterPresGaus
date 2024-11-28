@@ -5,8 +5,7 @@ import * as THREE from "three";
 
 export const renderer = (url: string) => {
     // НАЧАЛО БЕЗОПАСНОЙ ЗОНЫ
-
-    // Создаем инстанс Viewer с параметрами камеры
+    
     const viewer = new GaussianSplats3D.Viewer({
     'cameraUp': [0, -1, 0],
     'initialCameraPosition': [5.21449, 1.15657, -1.18348],
