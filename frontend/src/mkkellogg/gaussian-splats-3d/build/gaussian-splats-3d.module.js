@@ -5471,17 +5471,15 @@ class LoadingSpinner {
     constructor(message, container) {
         this.taskIDGen = 0;
         this.elementID = LoadingSpinner.elementIDGen++;
-
         this.tasks = [];
-
         this.message = message || 'Loading...';
         this.container = container || document.body;
-
+    
         // Создаем контейнеры для спиннера
         this.spinnerContainerOuter = document.createElement('div');
         this.spinnerContainerOuter.className = `spinnerOuterContainer${this.elementID}`;
         this.spinnerContainerOuter.style.display = 'none';
-
+    
         this.spinnerContainerPrimary = document.createElement('div');
         this.spinnerContainerPrimary.className = `spinnerContainerPrimary${this.elementID}`;
         this.spinnerPrimary = document.createElement('div');
@@ -5489,151 +5487,111 @@ class LoadingSpinner {
         this.messageContainerPrimary = document.createElement('div');
         this.messageContainerPrimary.classList.add(`messageContainer${this.elementID}`, `messageContainerPrimary${this.elementID}`);
         this.messageContainerPrimary.innerHTML = this.message;
-
+    
         this.spinnerContainerMin = document.createElement('div');
         this.spinnerContainerMin.className = `spinnerContainerMin${this.elementID}`;
         this.spinnerMin = document.createElement('div');
         this.spinnerMin.classList.add(`spinner${this.elementID}`, `spinnerMin${this.elementID}`);
-        
-        // Добавляем надпись "InterPres"
-        this.interPresText = document.createElement('div');
-        this.interPresText.classList.add(`interPresText${this.elementID}`);
-        this.interPresText.innerHTML = "InterPres";
-
+    
         this.messageContainerMin = document.createElement('div');
         this.messageContainerMin.classList.add(`messageContainer${this.elementID}`, `messageContainerMin${this.elementID}`);
         this.messageContainerMin.innerHTML = this.message;
-
+    
         // Добавляем элементы на страницу
         this.spinnerContainerPrimary.appendChild(this.spinnerPrimary);
-        this.spinnerContainerPrimary.appendChild(this.messageContainerPrimary);
-        this.spinnerContainerOuter.appendChild(this.spinnerContainerPrimary);
-
+    
         this.spinnerContainerMin.appendChild(this.spinnerMin);
         this.spinnerContainerMin.appendChild(this.messageContainerMin);
-        this.spinnerContainerMin.appendChild(this.interPresText); // Добавляем текст "InterPres"
         this.spinnerContainerOuter.appendChild(this.spinnerContainerMin);
-
+    
         // Добавляем стили
         const style = document.createElement('style');
         style.innerHTML = `
-            .spinnerOuterContainer${this.elementID} {
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                top: 0;
-                left: 0;
-                position: absolute;
-                pointer-events: none;
-            }
-
-            .messageContainer${this.elementID} {
-                height: 20px;
-                font-family: 'Inter', Arial, sans-serif; /* Устанавливаем шрифт Inter (или Arial как запасной) */
-                font-size: 12pt;
-                color: #000000; /* Черный текст */
-                text-align: center;
-                vertical-align: middle;
-            }
-
-            .spinner${this.elementID} {
-                padding: 15px;
-                background: #000000; /* Черный цвет спиннера */
-                z-index:99999;
-                aspect-ratio: 1;
-                border-radius: 50%;
-                --_m: 
-                    conic-gradient(#0000,#000),
-                    linear-gradient(#000 0 0) content-box;
-                -webkit-mask: var(--_m);
-                mask: var(--_m);
-                -webkit-mask-composite: source-out;
-                mask-composite: subtract;
-                box-sizing: border-box;
-                animation: load 1s linear infinite;
-            }
-
-            .spinnerContainerPrimary${this.elementID} {
-                z-index:99999;
-                background-color: #FFFFFF; /* Белый фон */
-                border: #000000 2px solid; /* Черная обводка */
-                border-radius: 5px;
-                padding-top: 20px;
-                padding-bottom: 10px;
-                margin: 0;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-80px, -80px);
-                width: 180px;
-                pointer-events: auto;
-            }
-
-            .spinnerPrimary${this.elementID} {
-                width: 120px;
-                margin-left: 30px;
-            }
-
-            .messageContainerPrimary${this.elementID} {
-                padding-top: 15px;
-            }
-
-            .spinnerContainerMin${this.elementID} {
-                z-index:99999;
-                background-color: #FFFFFF; /* Белый фон */
-                border: #000000 2px solid; /* Черная обводка */
-                border-radius: 5px;
-                padding-top: 20px;
-                padding-bottom: 15px;
-                margin: 0;
-                position: absolute;
-                bottom: 50px;
-                left: 50%;
-                transform: translate(-50%, 0);
-                display: flex;
-                flex-direction: row; /* Устанавливаем элементы в ряд */
-                pointer-events: auto;
-                min-width: 250px;
-            }
-
-            .messageContainerMin${this.elementID} {
-                margin-right: 15px;
-            }
-
-            .spinnerMin${this.elementID} {
-                width: 50px;
-                height: 50px;
-                margin-left: 15px;
-                margin-right: 25px;
-            }
-
-            .messageContainerMin${this.elementID} {
-                padding-top: 15px;
-            }
-
-            /* Стиль для текста "InterPres" */
-            .interPresText${this.elementID} {
-                font-family: 'Inter', Arial, sans-serif;
-                font-size: 10pt;
-                color: #000000; /* Черный цвет текста */
-                text-align: center;
-                margin-top: 5px;
-                z-index: 1000;  /* Убедитесь, что текст находится поверх других элементов */
-            }
-            
-            @keyframes load {
-                to { transform: rotate(1turn); }
-            }
-        `;
-        this.spinnerContainerOuter.appendChild(style);
-        this.container.appendChild(this.spinnerContainerOuter);
-
-        // Изначально скрываем спиннер
-        this.setMinimized(false, true);
-        this.fadeTransitions = [];
-
+    .spinnerOuterContainer${this.elementID} {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        top: 0;
+        left: 0;
+        position: absolute;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Центрируем по вертикали */
+        align-items: center;   /* Центрируем по горизонтали */
+        z-index: 9999;
+        background-color: #ffffff; /* Белый фон */
     }
 
+    .spinnerContainerPrimary${this.elementID}, .spinnerContainerMin${this.elementID} {
+        display: flex;
+        flex-direction: column; /* Вертикальное расположение: точки над текстом */
+        align-items: center; /* Центрируем по горизонтали */
+        gap: 10px; /* Расстояние между точками и текстом */
+    }
+
+    .spinnerPrimary${this.elementID}, .spinnerMin${this.elementID} {
+        display: flex;
+        justify-content: center; /* Центрируем точки по горизонтали */
+        align-items: center; /* Центрируем точки по вертикали */
+        gap: 8px;
+    }
+
+    .spinnerPrimary${this.elementID} div, .spinnerMin${this.elementID} div {
+        width: 10px;
+        height: 10px;
+        background-color: #000000; /* Чёрный цвет точек */
+        border-radius: 50%; /* Круглая форма */
+        animation: dot-flash 1.5s infinite ease-in-out;
+    }
+
+    .spinnerPrimary${this.elementID} div:nth-child(1), .spinnerMin${this.elementID} div:nth-child(1) {
+        animation-delay: 0s;
+    }
+    .spinnerPrimary${this.elementID} div:nth-child(2), .spinnerMin${this.elementID} div:nth-child(2) {
+        animation-delay: 0.3s;
+    }
+    .spinnerPrimary${this.elementID} div:nth-child(3), .spinnerMin${this.elementID} div:nth-child(3) {
+        animation-delay: 0.6s;
+    }
+
+    @keyframes dot-flash {
+        0%, 80%, 100% {
+            opacity: 0.3;
+        }
+        40% {
+            opacity: 1;
+        }
+    }
+
+    .messageContainer${this.elementID} {
+        font-family: 'Inter', Arial, sans-serif;
+        font-size: 12pt;
+        color: #000000; /* Чёрный текст */
+        text-align: center;
+        margin: 0;
+    }
+        `;
+        this.spinnerContainerOuter.appendChild(style);
+    
+        // Добавляем в DOM
+        this.container.appendChild(this.spinnerContainerOuter);
+    
+
+        // Добавляем три точки в каждый спиннер
+        for (let i = 0; i < 3; i++) {
+            const dotPrimary = document.createElement('div');
+            this.spinnerPrimary.appendChild(dotPrimary);
+
+            const dotMin = document.createElement('div');
+            this.spinnerMin.appendChild(dotMin);
+        }
+
+        this.container.appendChild(this.spinnerContainerOuter);
+
+        // Скрываем спиннер по умолчанию
+        this.spinnerContainerOuter.style.display = 'none';
+    }
 
     addTask(message) {
         const newTask = {
@@ -5682,7 +5640,7 @@ class LoadingSpinner {
     }
 
     show() {
-        this.spinnerContainerOuter.style.display = 'block';
+        this.spinnerContainerOuter.style.display = 'flex';
         this.visible = true;
     }
 
@@ -5703,26 +5661,16 @@ class LoadingSpinner {
     }
 
     setMinimized(minimized, instant) {
-        const showHideSpinner = (element, show, instant, displayStyle, fadeTransitionsIndex) => {
-            if (instant) {
-                element.style.display = show ? displayStyle : 'none';
-            } else {
-                this.fadeTransitions[fadeTransitionsIndex] = fadeElement(element, !show, displayStyle, STANDARD_FADE_DURATION, () => {
-                    this.fadeTransitions[fadeTransitionsIndex] = null;
-                });
-            }
-        };
-        showHideSpinner(this.spinnerContainerPrimary, !minimized, instant, 'block', 0);
-        showHideSpinner(this.spinnerContainerMin, minimized, instant, 'flex', 1);
+        this.spinnerContainerPrimary.style.display = minimized ? 'none' : 'flex';
+        this.spinnerContainerMin.style.display = minimized ? 'flex' : 'none';
         this.minimized = minimized;
     }
 
     setMessage(msg) {
-        this.messageContainerPrimary.innerHTML = msg;
-        this.messageContainerMin.innerHTML = msg;
+        if (this.messageContainerPrimary) this.messageContainerPrimary.innerHTML = msg;
+        if (this.messageContainerMin) this.messageContainerMin.innerHTML = msg;
     }
 }
-
 class LoadingProgressBar {
 
     constructor(container) {
