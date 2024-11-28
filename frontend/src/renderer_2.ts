@@ -5,8 +5,16 @@ import * as THREE from "three";
 
 export const renderer = (url: string) => {
     // НАЧАЛО БЕЗОПАСНОЙ ЗОНЫ
-    
+
     const threeScene = new THREE.Scene();
+
+    // Добавляем освещение в сцену
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    threeScene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 10, 7.5);
+    threeScene.add(directionalLight);
 
     // Создаем инстанс Viewer с параметрами камеры
     const viewer = new GaussianSplats3D.Viewer({
