@@ -7121,15 +7121,46 @@ class SplatMaterial {
             if (fadeInComplete == 0) {
                 float opacityAdjust = 1.0;
                 float centerDist = length(splatCenter - sceneCenter);
-                float renderTime = max(currentTime - firstRenderTime, 0.0);
-
-                float fadeDistance = 0.75;
+    
+                // Задержка перед началом анимации
+                float delay = 2.0; // Задержка в секундах
+                float adjustedTime = max(currentTime - firstRenderTime - delay, 0.0);
+    
+                // Масштабирование времени для замедления
+                float renderTime = adjustedTime * 0.1; // Замедляем в 5 раз (1/5 = 0.2)
+    
+                // Этап 1: Волна синхронизирована с fade-in
+                float fadeStart = visibleRegionFadeStartRadius + renderTime * 0.01; // Радиус для fade-in
+                float fadeDistance = 0.75; // Дистанция размытия границ
+                float blueWaveFactor = 1.0 - clamp(abs(centerDist - fadeStart) / fadeDistance, 0.0, 1.0);
+    
+                if (centerDist <= fadeStart && blueWaveFactor > 0.1) {
+                    // Применяем переливы цвета к волне
+                    vec3 waveColor = vec3(
+                        0.5 + 0.5 * sin(renderTime * 0.005),
+                        0.5 + 0.5 * cos(renderTime * 0.007),
+                        0.8 + 0.2 * sin(renderTime * 0.003)
+                    );
+    
+                    vColor.rgb = waveColor * blueWaveFactor; // Цвет волны
+                    vColor.a = blueWaveFactor; // Прозрачность волны
+                    return; // Волна прерывает рендеринг геометрии
+                }
+    
+                // Этап 2: Появление геометрии
                 float distanceLoadFadeInFactor = step(visibleRegionFadeStartRadius, centerDist);
                 distanceLoadFadeInFactor = (1.0 - distanceLoadFadeInFactor) +
-                                        (1.0 - clamp((centerDist - visibleRegionFadeStartRadius) / fadeDistance, 0.0, 1.0)) *
-                                        distanceLoadFadeInFactor;
+                                           (1.0 - clamp((centerDist - visibleRegionFadeStartRadius) / fadeDistance, 0.0, 1.0)) *
+                                           distanceLoadFadeInFactor;
+    
                 opacityAdjust *= distanceLoadFadeInFactor;
-                vColor.a *= opacityAdjust;
+    
+                // Плавное улучшение качества
+                float qualityFactor = clamp(renderTime * 0.002, 0.0, 1.0);
+                opacityAdjust *= qualityFactor;
+    
+                // Прозрачность на ранних этапах
+                vColor.a *= opacityAdjust * 0.5 + 0.5 * qualityFactor;
             }
         `;
     }
