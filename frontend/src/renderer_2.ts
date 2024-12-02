@@ -20,9 +20,15 @@ export const renderer = (url: string) => {
     const viewer = new GaussianSplats3D.Viewer({
         threeScene,
         sharedMemoryForWorkers: false,
+        splatSortDistanceMapPrecision: 16,
         cameraUp: [0, -1, 0],
-        initialCameraPosition: [-2, -2, 4],
-        initialCameraLookAt: [0, 1.65, 0],
+        initialCameraPosition: [5.39342, 0.66359, -0.53531],
+        initialCameraLookAt: [0.88732, 2.80143, -0.64037],
+        sceneFadeInRateMultiplier: 1,
+        inMemoryCompressionLevel: 1,
+        dynamicScene: false,
+        renderMode: GaussianSplats3D.RenderMode.OnChange,
+        sceneRevealMode: GaussianSplats3D.SceneRevealMode.Gradual,
     });
     // Загружаем сцену
     viewer
