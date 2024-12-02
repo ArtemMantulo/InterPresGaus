@@ -20,6 +20,16 @@ services:
             - db
             - nest
 
+    temp:
+        build:
+            context: ./temp
+        tty: true
+        working_dir: /opt/next
+        expose:
+            - '3003'
+        depends_on:
+            - next
+
     db:
         image: postgres:16
         environment:
