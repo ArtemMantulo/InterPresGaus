@@ -19,6 +19,7 @@ setupResizeObserver(canvas, renderer3D);
 // Initialize Main Scene
 let { threeScene } = initScene();
 
+
 // Initialize Viewer and Controls
 const { viewer, camera } = initViewer(
   'https://huggingface.co/spaces/Vision70s/GaussianVision70s/resolve/main/archViz_orig.ply',
