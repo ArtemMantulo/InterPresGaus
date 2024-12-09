@@ -2,10 +2,10 @@ name: Trigger Automated tests
 on:
   push:
     branches:
-      - main  # or any branch you want to monitor
+      - main  
   pull_request:
     branches:
-      - main  # or any branch you want to monitor
+      - main  
 
 jobs:
   trigger:
