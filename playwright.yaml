@@ -1,0 +1,19 @@
+name: Trigger Automated tests
+on:
+  push:
+    branches:
+      - main  # or any branch you want to monitor
+  pull_request:
+    branches:
+      - main  # or any branch you want to monitor
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Repository B Workflow
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: ArtemMantulo/wuffesPlaywright
+          token: ${{ secrets.SOURCE_REPO_TOKEN }}
+          event-type: trigger-workflow  # Custom event name
