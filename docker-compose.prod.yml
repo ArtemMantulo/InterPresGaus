@@ -24,7 +24,7 @@ services:
         build:
             context: ./temp
         tty: true
-        working_dir: /opt/next
+        # working_dir: /opt/temp
         expose:
             - '3003'
         depends_on:
@@ -49,7 +49,7 @@ services:
             - db
         image: nginx:latest
         ports:
-            - '127.0.0.1:81:80'
+            - '80:80'
         volumes:
             - ./nginx:/etc/nginx/conf.d
             - ./static:/var/www/static
