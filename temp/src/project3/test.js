@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const entries = list.getEntries();
         for (const entry of entries) {
             if (entry.name.includes('GIGA_MAG32.ksplat')) {
-                // console.log(`Файл ${entry.name} загружен.`);
+                console.log(`Файл ${entry.name} загружен.`);
                 console.log('Длительность загрузки:', entry.duration);
 
                 // Останавливаем наблюдатель, если файл найден
