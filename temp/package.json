@@ -6,9 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "start": "node server.js",
-    "start_docker": "http-server ./ --port 3003",
-    "preview": "vite preview",
-    "gulp": "gulp"
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
@@ -19,8 +17,6 @@
     "three": "^0.170.0"
   },
   "devDependencies": {
-    "gulp": "^5.0.0",
-    "gulp-replace": "^1.1.4",
     "http-server": "^14.1.1",
     "vite": "^5.4.11",
     "vite-plugin-cross-origin-isolation": "^0.1.6"

@@ -10,6 +10,8 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/src/assets', express.static(path.join(__dirname, 'src/assets')));
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

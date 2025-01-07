@@ -15,7 +15,7 @@ const viewer = new GaussianSplats3D.Viewer({
     'sharedMemoryForWorkers': false
 });
 
-viewer.addSplatScene('../assets/GIGA_MAG32.ksplat', {
+viewer.addSplatScene('/assets/GIGA_MAG32.ksplat', {
     'splatAlphaRemovalThreshold': 15,
     'showLoadingUI': true,
     'progressiveLoad': true,

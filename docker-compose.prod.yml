@@ -1,24 +1,24 @@
 services:
-    nest:
-        build:
-            context: ./backend
-        tty: true
-        working_dir: /opt/nest
-        expose:
-            - '3001'
-        depends_on:
-            - db
+    # nest:
+    #     build:
+    #         context: ./backend
+    #     tty: true
+    #     working_dir: /opt/nest
+    #     expose:
+    #         - '3001'
+    #     depends_on:
+    #         - db
 
-    next:
-        build:
-            context: ./frontend
-        tty: true
-        working_dir: /opt/next
-        expose:
-            - '3000'
-        depends_on:
-            - db
-            - nest
+    # next:
+    #     build:
+    #         context: ./frontend
+    #     tty: true
+    #     working_dir: /opt/next
+    #     expose:
+    #         - '3000'
+    #     depends_on:
+    #         - db
+    #         - nest
 
     temp:
         build:
@@ -26,30 +26,30 @@ services:
         tty: true
         # working_dir: /opt/temp
         expose:
-            - '3003'
-        depends_on:
-            - next
+            - '3000'
+        # depends_on:
+        #     - next
 
-    db:
-        image: postgres:16
-        environment:
-            POSTGRES_DB: "postgres"
-            POSTGRES_USER: "postgres"
-            POSTGRES_PASSWORD: "postgres"
-        volumes:
-            - database:/var/lib/postgresql/data:delegated
-        ports:
-            - "127.0.0.1:5432:5432"
-        restart: always
+    # db:
+    #     image: postgres:16
+    #     environment:
+    #         POSTGRES_DB: "postgres"
+    #         POSTGRES_USER: "postgres"
+    #         POSTGRES_PASSWORD: "postgres"
+    #     volumes:
+    #         - database:/var/lib/postgresql/data:delegated
+    #     ports:
+    #         - "127.0.0.1:5432:5432"
+    #     restart: always
 
     nginx:
         container_name: proxy_nginx
         depends_on:
-            - nest
-            - db
+            - temp
+            # - db
         image: nginx:latest
         ports:
-            - '127.0.0.1:81:80'
+            - '80:80'
         volumes:
             - ./nginx:/etc/nginx/conf.d
             - ./static:/var/www/static

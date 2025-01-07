@@ -5533,10 +5533,10 @@ class LoadingSpinner {
                 padding: 15px;
                 background: #07e8d6;
                 z-index:99999;
-            
+
                 aspect-ratio: 1;
                 border-radius: 50%;
-                --_m: 
+                --_m:
                     conic-gradient(#0000,#000),
                     linear-gradient(#000 0 0) content-box;
                 -webkit-mask: var(--_m);
@@ -5604,7 +5604,7 @@ class LoadingSpinner {
             .messageContainerMin${this.elementID} {
                 padding-top: 15px;
             }
-            
+
             @keyframes load {
                 to{transform: rotate(1turn)}
             }
@@ -6099,7 +6099,7 @@ class SceneHelper {
                 varying vec2 vUv;
                 void main() {
                     vUv = uv;
-                    gl_Position = vec4( position.xy, 0.0, 1.0 );    
+                    gl_Position = vec4( position.xy, 0.0, 1.0 );
                 }
             `,
             fragmentShader: `
@@ -6365,7 +6365,7 @@ class SceneHelper {
                 gl_Position.y = gl_Position.y / gl_Position.w;
                 gl_Position.z = 0.0;
                 gl_Position.w = 1.0;
-    
+
             }
         `;
 
@@ -6454,7 +6454,7 @@ class SceneHelper {
                 float aaRange = 0.0025 * viewport.y;
                 float radius = 0.06 * viewport.y;
                 float radDiff = abs(projectedRadius - radius) - lineWidth;
-                float alpha = 1.0 - clamp(radDiff / 5.0, 0.0, 1.0); 
+                float alpha = 1.0 - clamp(radDiff / 5.0, 0.0, 1.0);
 
                 gl_FragColor = vec4(color.rgb, alpha * opacity);
             }
@@ -6870,7 +6870,7 @@ class SplatMaterial {
 
         mat3 quaternionToRotationMatrix(float x, float y, float z, float w) {
             float s = 1.0 / sqrt(w * w + x * x + y * y + z * z);
-        
+
             return mat3(
                 1. - 2. * (y * y + z * z),
                 2. * (x * y + w * z),
@@ -6979,7 +6979,7 @@ class SplatMaterial {
         // Proceed to sampling and rendering 1st degree spherical harmonics
         if (maxSphericalHarmonicsDegree >= 1) {
 
-            vertexShaderSource += `   
+            vertexShaderSource += `
             if (sphericalHarmonicsDegree >= 1) {
             `;
 
@@ -7433,7 +7433,7 @@ class SplatMaterial3D {
                 cov3D_M11_M12_M13 = sampledCovarianceA.rgb;
                 cov3D_M22_M23_M33 = vec3(sampledCovarianceA.a, sampledCovarianceB.rg);
             }
-        
+
             // Construct the 3D covariance matrix
             mat3 Vrk = mat3(
                 cov3D_M11_M12_M13.x, cov3D_M11_M12_M13.y, cov3D_M11_M12_M13.z,
@@ -7556,7 +7556,7 @@ class SplatMaterial3D {
         let fragmentShaderSource = `
             precision highp float;
             #include <common>
- 
+
             uniform vec3 debugColor;
 
             varying vec4 vColor;
@@ -7697,7 +7697,7 @@ class SplatMaterial2D {
             mat3 S = mat3(scaleRotation123.r, 0.0, 0.0,
                             0.0, scaleRotation123.g, 0.0,
                             0.0, 0.0, scaleRotation123.b);
-            
+
             mat3 L = R * S;
 
             mat3x4 splat2World = mat3x4(vec4(L[0], 0.0),
@@ -7902,13 +7902,13 @@ class SplatMaterial2D {
                 vec3 p = cross(k, l);
                 if (p.z == 0.0) discard;
                 vec2 s = vec2(p.x / p.z, p.y / p.z);
-                float rho3d = (s.x * s.x + s.y * s.y); 
+                float rho3d = (s.x * s.x + s.y * s.y);
                 vec2 d = vec2(xy.x - vFragCoord.x, xy.y - vFragCoord.y);
-                float rho2d = FilterInvSquare * (d.x * d.x + d.y * d.y); 
+                float rho2d = FilterInvSquare * (d.x * d.x + d.y * d.y);
 
                 // compute intersection and depth
                 float rho = min(rho3d, rho2d);
-                float depth = (rho3d <= rho2d) ? (s.x * Tw.x + s.y * Tw.y) + Tw.z : Tw.z; 
+                float depth = (rho3d <= rho2d) ? (s.x * Tw.x + s.y * Tw.y) + Tw.z : Tw.z;
                 if (depth < near_n) discard;
                 //  vec4 nor_o = collected_normal_opacity[j];
                 //  float normal[3] = {nor_o.x, nor_o.y, nor_o.z};
@@ -7920,7 +7920,7 @@ class SplatMaterial2D {
                 // Eq. (2) from 3D Gaussian splatting paper.
                 // Obtain alpha by multiplying with Gaussian opacity
                 // and its exponential falloff from mean.
-                // Avoid numerical instabilities (see paper appendix). 
+                // Avoid numerical instabilities (see paper appendix).
                 float alpha = min(0.99f, opa * exp(power));
                 if (alpha < 1.0f / 255.0f) discard;
                 float test_T = T * (1.0 - alpha);
