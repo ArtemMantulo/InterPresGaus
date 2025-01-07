@@ -1,4 +1,4 @@
-import * as THREE from '../../node_modules/three';
+import * as THREE from 'three';
 
 function animateCameraTo(camera, controls, newPosition, target) {
   const duration = 1000; // Animation duration in milliseconds
