@@ -6,4 +6,4 @@ RUN npm run gulp
 
 EXPOSE 3003
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start_docker"]
