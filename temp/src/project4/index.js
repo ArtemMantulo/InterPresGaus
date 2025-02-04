@@ -15,7 +15,7 @@ const viewer = new GaussianSplats3D.Viewer({
     'sharedMemoryForWorkers': false
 });
 
-viewer.addSplatScene('../assets/Breig_croped.ksplat', {
+viewer.addSplatScene('../assets/Breig_final.ksplat', {
     'splatAlphaRemovalThreshold': 15,
     'showLoadingUI': true,
     'progressiveLoad': true,
