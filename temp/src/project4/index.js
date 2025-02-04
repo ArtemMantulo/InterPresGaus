@@ -47,7 +47,7 @@ viewer.addSplatScene('../assets/Breig_final.ksplat', {
   }
 
   controls.autoRotate = true;
-  controls.autoRotateSpeed = 1.0;
+  controls.autoRotateSpeed = 0.5;
 
   // Запускаем анимацию перехода от точек к сплатам
   //viewer.animatePointCloudToSplats();
