@@ -8,10 +8,12 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: './index.html',
-        project1: './src/project1/index.html',
-        project2: './src/project2/index.html',
-        project3: './src/project3/index.html',
         project4: './src/project4/index.html',
+        generalViewEntranceCurrent: './src/breigproject/current/generalviewentrance/index.html',
+        generalViewSecondvisitCurrent: './src/breigproject/current/generalviewsecondvisit/index.html',
+        closeViewCurrent: './src/breigproject/current/closeview/index.html',
+        generalViewFuture: './src/breigproject/future/generalview/index.html',
+        closeViewFuture: './src/breigproject/future/closeview/index.html',
       },
       external: [],
     },

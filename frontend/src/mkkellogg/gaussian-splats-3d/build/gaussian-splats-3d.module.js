@@ -5671,6 +5671,7 @@ class LoadingSpinner {
         if (this.messageContainerMin) this.messageContainerMin.innerHTML = msg;
     }
 }
+
 class LoadingProgressBar {
 
     constructor(container) {
@@ -5681,6 +5682,7 @@ class LoadingProgressBar {
         this.progressBarContainerOuter = document.createElement('div');
         this.progressBarContainerOuter.className = 'progressBarOuterContainer';
         this.progressBarContainerOuter.style.display = 'none';
+    
 
         this.progressBarBox = document.createElement('div');
         this.progressBarBox.className = 'progressBarBox';
@@ -5701,7 +5703,6 @@ class LoadingProgressBar {
             .progressBarOuterContainer {
                 width: 100%;
                 height: 100%;
-                margin: 0;
                 top: 0;
                 left: 0;
                 position: absolute;
@@ -5709,51 +5710,33 @@ class LoadingProgressBar {
             }
 
             .progressBarBox {
-                z-index:99999;
-                padding: 7px 9px 5px 7px;
-                background-color: rgba(190, 190, 190, 0.75);
-                border: #555555 1px solid;
-                border-radius: 15px;
-                margin: 0;
+                z-index: 99999;
+                padding: 0;
+                background-color: transparent;
                 position: absolute;
                 bottom: 50px;
                 left: 50%;
                 transform: translate(-50%, 0);
-                width: 180px;
-                height: 30px;
+                width: 451px;
+                height: 8px;
                 pointer-events: auto;
             }
 
             .progressBarBackground {
                 width: 100%;
-                height: 25px;
-                border-radius:10px;
-                background-color: #000000; /* Черный фон прогресса */
-                border: #444444 1px solid;
-                box-shadow: inset 0 0 10px #333333;
+                height: 8px;
+                border-radius: 4px;
+                background-color: #444444;
+                overflow: hidden;
             }
 
             .progressBar {
-                height: 25px;
+                height: 8px;
                 width: 0px;
-                border-radius:10px;
-                background-color: #ffffff; /* Белый цвет прогресса */
-                box-shadow: inset 0 0 10px #cccccc;
-                animation: progressAnimation 2s linear infinite;
+                border-radius: 4px;
+                background-color: #FFFFFF;
+                transition: width 0.3s ease;
             }
-
-            @keyframes progressAnimation {
-                0% {
-                    width: 0;
-                }
-                50% {
-                    width: 50%;
-                }
-                100% {
-                    width: 100%;
-                }
-            }
-
         `;
         this.progressBarContainerOuter.appendChild(style);
         this.container.appendChild(this.progressBarContainerOuter);
@@ -5768,7 +5751,7 @@ class LoadingProgressBar {
     }
 
     setProgress(progress) {
-        this.progressBar.style.width = progress + '%';
+        this.progressBar.style.width = `${progress}%`;
     }
 
     setContainer(container) {
@@ -5781,8 +5764,8 @@ class LoadingProgressBar {
             this.progressBarContainerOuter.style.zIndex = this.container.style.zIndex + 1;
         }
     }
-
 }
+
 
 class InfoPanel {
 

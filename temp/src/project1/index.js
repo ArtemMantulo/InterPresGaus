@@ -2,7 +2,7 @@ import * as THREE from '../../node_modules/three';
 import { initRenderer } from '../utils/renderer.js';
 import { initScene } from '../utils/scene.js';
 import { initViewer } from '../utils/viewer.js';
-import { animateCameraTo, initControls } from '../utils/controls.js';
+import { animateCameraTo, initControls, attachButtonTo3DPoint } from '../utils/controls.js';
 import { setupResizeObserver, setupWindowResizeHandlers } from '../utils/resizing.js';
 
 // Constants for initial dimensions
@@ -28,6 +28,7 @@ const { viewer, camera } = initViewer(
   renderWidth,
 );
 const { controls } = initControls(camera, renderer3D);
+
 
 // Button Creation Function
 function createButton(reducedDistance, label, position, target) {
@@ -67,7 +68,7 @@ controls.addEventListener('change', () => {
 
 // Example: Attach a button to a specific 3D point
 const targetPoint = new THREE.Vector3(0, 1, 0);
-// attachButtonTo3DPoint(targetPoint, 'Zoom here', camera, controls);
+attachButtonTo3DPoint(targetPoint, 'Zoom here', camera, controls);
 
 // Create Predefined Camera Views
 createButton(2, 'Front View', [9, 4, -15], [0, 0, 0]);

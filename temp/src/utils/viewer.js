@@ -68,6 +68,11 @@ export function initViewer(link, renderer3D, threeScene, renderHeight, renderWid
         // Render the updated scene
         viewer.render();
 
+        const scene = viewer.splatMesh.getScene(sceneIndex);
+
+        scene.background = new THREE.Color(0x202020); // Цвет фона сцены — сделай темнее для контраста
+        scene.fog = new THREE.FogExp2(new THREE.Color(0x808080), 0.02);
+
         // Start the viewer once the scene is loaded
         viewer.start();
 
