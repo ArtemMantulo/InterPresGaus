@@ -12028,6 +12028,56 @@ class Viewer {
 
     }();
 
+    animatePointCloudToSplats() {
+        console.log("RUNNNN")
+        if (!this.splatMesh || !this.splatMesh.material || !this.splatMesh.material.uniforms) {
+            console.error("Ошибка: SplatMesh или его параметры не инициализированы.");
+            return;
+        }
+    
+        const uniforms = this.splatMesh.material.uniforms;
+    
+        // Проверяем необходимые параметры
+        if (!uniforms.splatScale || uniforms.pointCloudModeEnabled === undefined || !uniforms.visibleRegionRadius) {
+            console.error("Ошибка: Необходимые параметры (splatScale, pointCloudModeEnabled или visibleRegionRadius) отсутствуют.");
+            console.log("Доступные uniforms:", Object.keys(uniforms));
+            return;
+        }
+    
+        // Начальные параметры
+        uniforms.splatScale.value = 0.1; // Начальный размер сплатов
+        uniforms.pointCloudModeEnabled.value = true; // Включаем облако точек
+        uniforms.visibleRegionRadius.value = 0.0; // Начальный радиус видимости
+    
+        const duration = 3000; // Длительность анимации (для обоих процессов)
+        const startTime = performance.now();
+    
+        const animate = (time) => {
+            const elapsed = time - startTime;
+            const t = Math.min(elapsed / duration, 1); // Нормализуем время
+    
+            // Анимация изменения масштаба сплатов
+            uniforms.splatScale.value = 0.1 + t * 0.9;
+    
+            // Анимация изменения радиуса видимости
+            uniforms.visibleRegionRadius.value = t * 10.0; // Пример: радиус от 0 до 10
+    
+            // Выключаем облако точек ближе к концу анимации
+            if (t > 0.9) {
+                uniforms.pointCloudModeEnabled.value = false;
+            }
+    
+            //Завершаем анимацию
+            if (t < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                console.log("Анимация завершена.");
+            }
+        };
+    
+        requestAnimationFrame(animate);
+    }
+
     onMouseMove(mouse) {
         this.mousePosition.set(mouse.offsetX, mouse.offsetY);
     }

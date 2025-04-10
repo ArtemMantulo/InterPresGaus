@@ -330,7 +330,7 @@ export const createNavigationButton = (
   button.style.fontSize = '14px';
   button.style.fontStyle = 'normal';
   button.style.lineHeight = 'normal';
-  button.style.fontFamily = 'Inter';
+  button.style.font = 'Inter';
 
   // ✅ Устанавливаем font-weight в зависимости от цвета фона
   if (colors.buttonName === 'Dark') {

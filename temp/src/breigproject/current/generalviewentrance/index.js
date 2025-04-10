@@ -1,6 +1,6 @@
 import * as GaussianSplats3D from "../../../gaussian-splats-3d.module.js";
 import Paths from '../../../urls.js';
-import { createLoadingImage, createStartButton, createZoomButton, BLACK_BUTTON_COLORS, GREY_BUTTON_COLORS, createCustomLoader, createNavigationButton } from '../../../helpers/button_helper.ts';
+import { createLoadingImage, createStartButton, BLACK_BUTTON_COLORS, GREY_BUTTON_COLORS, createCustomLoader, createNavigationButton } from '../../../helpers/button_helper.ts';
 
 // ✅ Create initial picture
 const initialPicture = createLoadingImage('/assets/Initial_picture.webp');
@@ -24,8 +24,8 @@ const loadScene = () => {
 
   const viewer = new GaussianSplats3D.Viewer({
     cameraUp: [0, -1, 0],
-    'initialCameraPosition': [2.71449, 1.85657, -2.68348],
-    'initialCameraLookAt': [	0.59942, 2.87931, -0.75766],
+    'initialCameraPosition': [2.29149, -2.45657, -9.16148],
+    'initialCameraLookAt': [3.01607, -0.97057, -5.02296],
     'inMemoryCompressionLevel': 1,
     'renderMode': GaussianSplats3D.RenderMode.Continuous,
     'sceneRevealMode': GaussianSplats3D.SceneRevealMode.Gradual,
@@ -36,7 +36,7 @@ const loadScene = () => {
     showLoadingUI: false,
   });
 
-  viewer.addSplatScene('/assets/Breig_current_far.ksplat', {
+  viewer.addSplatScene('/assets/Breig_current.ksplat', {
     splatAlphaRemovalThreshold: 15,
     progressiveLoad: true,
     showLoadingUI: false,
@@ -50,7 +50,7 @@ const loadScene = () => {
       loaderBar.style.width = `${Math.min(progress, 100)}%`;
 
       // ✅ Remove initial picture after 25% progress
-      if (progress > 25 && initialPicture.style.opacity !== '0') {
+      if (progress > 40 && initialPicture.style.opacity !== '0') {
         console.log('Progress > 25% → Fading out initial picture');
 
         initialPicture.style.transition = 'opacity 0.4s ease';
@@ -90,10 +90,10 @@ const loadScene = () => {
             const updateButtonPosition = () => {
               if (mediaQuery.matches) {
                 // Если ширина меньше 768px, фиксируем позицию на 46%
-                buttonContainer.style.left = '44%';
+                buttonContainer.style.left = '50%';
               } else {
                 // Если ширина больше 768px, возвращаем на 48%
-                buttonContainer.style.left = '48%';
+                buttonContainer.style.left = '50%';
               }
             };
             
@@ -108,8 +108,6 @@ const loadScene = () => {
 
             createNavigationButton(buttonContainer,"Current", true, BLACK_BUTTON_COLORS);
             createNavigationButton(buttonContainer,"Future", false, GREY_BUTTON_COLORS, Paths.futureProjectHtmlPath);
-            createZoomButton(buttonContainer, 'zoom-in', GREY_BUTTON_COLORS, Paths.currentProjectCloseHtmlPath);
-          
           }
         }, 400); // ✅ Ensure fade-out completes before removing
       }
@@ -131,10 +129,10 @@ const loadScene = () => {
     const camera = viewer.camera;
     const controls = viewer.controls;
     if (controls) {
-      controls.minDistance = 3;
-      controls.maxDistance = 9;
-      controls.minPolarAngle = Math.PI / 6;
-      controls.maxPolarAngle = Math.PI / 2.7;
+      controls.minDistance = 2;
+      controls.maxDistance = 12;
+      controls.minPolarAngle = Math.PI / 10;
+      controls.maxPolarAngle = Math.PI / 2.5;
       controls.autoRotate = true;
       controls.autoRotateSpeed = 0.2;
     }
@@ -145,5 +143,3 @@ const loadScene = () => {
 
 // ✅ Handle secondImage click to start loading
 secondImage.addEventListener('click', loadScene);
-
-// ✅ Handle startButton click to reveal second image

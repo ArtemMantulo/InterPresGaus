@@ -12013,6 +12013,7 @@ class Viewer {
 
     }();
     animatePointCloudToSplats() {
+    
         if (!this.splatMesh || !this.splatMesh.material || !this.splatMesh.material.uniforms) {
             console.error("Ошибка: SplatMesh или его параметры не инициализированы.");
             return;

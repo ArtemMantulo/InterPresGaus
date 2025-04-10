@@ -6,8 +6,8 @@ const { loaderContainer, loaderBar } = createCustomLoader();
 
 const viewer = new GaussianSplats3D.Viewer({
     'cameraUp': [0, -1, 0],
-    'initialCameraPosition': [2.71449, 1.85657, -2.68348],
-    'initialCameraLookAt': [	0.59942, 2.87931, -0.75766],
+    'initialCameraPosition': [2.69149, -2.67657, -9.38148],
+    'initialCameraLookAt': [	3.14728, -0.83253, -4.75862],
     'inMemoryCompressionLevel': 1,
     'renderMode': GaussianSplats3D.RenderMode.OnChange,
     'sceneRevealMode': GaussianSplats3D.SceneRevealMode.Gradual,
@@ -17,7 +17,7 @@ const viewer = new GaussianSplats3D.Viewer({
     'sharedMemoryForWorkers': false
 });
 
-viewer.addSplatScene('/assets/Breig_current_far.ksplat', {
+viewer.addSplatScene('/assets/Breig_current.ksplat', {
     'splatAlphaRemovalThreshold': 15,
     'showLoadingUI': true,
     'progressiveLoad': true,
@@ -50,11 +50,11 @@ const camera = viewer.camera; // Ensure this is accessible
   // Access the camera controls (if available)
   const controls = viewer.controls; // Hypothetical property to access controls
   if (controls) {
-    controls.minDistance = 3; // Set minimum zoom distance
-    controls.maxDistance = 5; // Set maximum zoom distance
+    controls.minDistance = 2; // Set minimum zoom distance
+    controls.maxDistance = 12; // Set maximum zoom distance
 
     // Optionally, limit vertical camera angles
-    controls.minPolarAngle = Math.PI / 6; // Minimum angle (45 degrees above horizon)
+    controls.minPolarAngle = Math.PI / 10; // Minimum angle (45 degrees above horizon)
     controls.maxPolarAngle = Math.PI / 2.7; // Maximum angle (directly above the object)
   } else {
     console.warn(
@@ -93,10 +93,10 @@ const camera = viewer.camera; // Ensure this is accessible
             const updateButtonPosition = () => {
               if (mediaQuery.matches) {
                 // Если ширина меньше 768px, фиксируем позицию на 46%
-                buttonContainer.style.left = '44%';
+                buttonContainer.style.left = '50%';
               } else {
                 // Если ширина больше 768px, возвращаем на 48%
-                buttonContainer.style.left = '48%';
+                buttonContainer.style.left = '50%';
               }
             };
             
@@ -108,7 +108,7 @@ const camera = viewer.camera; // Ensure this is accessible
 
   createNavigationButton(buttonContainer,"Current", true, BLACK_BUTTON_COLORS);
   createNavigationButton(buttonContainer,"Future", false, GREY_BUTTON_COLORS, Paths.futureProjectHtmlPath);
-  createZoomButton(buttonContainer, 'zoom-in', GREY_BUTTON_COLORS, Paths.currentProjectCloseHtmlPath);
+
 
   // Запускаем анимацию перехода от точек к сплатам
   //viewer.animatePointCloudToSplats();
