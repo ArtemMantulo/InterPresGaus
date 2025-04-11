@@ -3,44 +3,45 @@ import * as THREE from 'three';
 
 // ===== SCENE SETUP =====
 const threeScene = new THREE.Scene();
-const lookAt = new THREE.Vector3(1.48304, -0.85783, -5.5530717);
+const lookAt = new THREE.Vector3(5.694504, -2.95283, 1.1030717);
 
-// ===== HORIZONTALLY ALIGNED SEGMENTS =====
-const floorCount = 12;
-const floorHeight = 0.14;       // этаж
-const floorWidth = 0.11;        // длина блока
-const floorDepth = 0.4;        // глубина блока
-const spacing = 0.0135;
+// ===== HORIZONTAL 8-UNIT BLOCK =====
+const floorCount = 8;
+const unitLength = 0.2;
+const unitHeight = 0.3;
+const unitWidth = 0.5;
 
 const buildingGroup = new THREE.Group();
 
 for (let i = 0; i < floorCount; i++) {
-  const geometry = new THREE.BoxGeometry(floorWidth, floorHeight, floorDepth);
+  const geometry = new THREE.BoxGeometry(unitWidth, unitHeight, unitLength);
+  geometry.computeBoundingBox();
+
   const hue = (i / floorCount) * 360;
   const color = new THREE.Color(`hsl(${hue}, 70%, 60%)`);
-
   const material = new THREE.MeshStandardMaterial({
     color,
     transparent: true,
     opacity: 1,
-    emissive: new THREE.Color(0x000000),
-    emissiveIntensity: 1,
-    depthWrite: false,
-    colorWrite: false
+    depthWrite: true,
+    colorWrite: true
   });
 
   const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(
+    lookAt.x,
+    lookAt.y + unitHeight / 2,
+    lookAt.z + i * unitLength
+  );
 
-  const totalLength = floorCount * (floorWidth + spacing);
-  const offsetX = -totalLength / 2 + i * (floorWidth + spacing) + floorWidth / 2;
+  const helper = new THREE.BoxHelper(mesh, 0x00ffff);
+  threeScene.add(helper);
 
-  mesh.position.set(lookAt.x + offsetX, lookAt.y, lookAt.z);
   mesh.userData.floorNumber = i + 1;
-
   buildingGroup.add(mesh);
 }
 
-buildingGroup.rotation.y = THREE.MathUtils.degToRad(-13);
+// buildingGroup.rotation.y = THREE.MathUtils.degToRad(79); // убираем вращение
 threeScene.add(buildingGroup);
 
 // ===== MARKER =====
@@ -57,7 +58,7 @@ const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
 dirLight.position.set(5, 10, 5);
 threeScene.add(dirLight);
 
-// ===== LABEL (hover info) =====
+// ===== LABEL =====
 const label = document.createElement('div');
 label.style.position = 'absolute';
 label.style.padding = '4px 8px';
@@ -70,7 +71,7 @@ label.style.display = 'none';
 label.style.zIndex = '1000';
 document.body.appendChild(label);
 
-// ===== INFO PANEL (click) =====
+// ===== INFO PANEL =====
 const infoPanel = document.createElement('div');
 infoPanel.style.position = 'absolute';
 infoPanel.style.top = '20px';
@@ -113,11 +114,9 @@ const viewer = new GaussianSplats3D.Viewer({
   splatSortDistanceMapPrecision: 16,
   sceneFadeInRateMultiplier: 20,
   dynamicScene: false,
-  sharedMemoryForWorkers: false,
-  renderMode: GaussianSplats3D.RenderMode.Always, 
+  sharedMemoryForWorkers: false
 });
 
-// ===== LOAD SCENE & INTERACTION =====
 viewer.addSplatScene('../assets/Breig_future.ksplat', {
   splatAlphaRemovalThreshold: 15,
   showLoadingUI: true,
@@ -152,7 +151,7 @@ viewer.addSplatScene('../assets/Breig_future.ksplat', {
     mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
     raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(buildingGroup.children);
+    const intersects = raycaster.intersectObject(buildingGroup, true);
 
     if (intersects.length > 0) {
       const floor = intersects[0].object;
@@ -174,7 +173,7 @@ viewer.addSplatScene('../assets/Breig_future.ksplat', {
       const x = (point.x * 0.5 + 0.5) * rect.width + rect.left;
       const y = (1 - (point.y * 0.5 + 0.5)) * rect.height + rect.top;
 
-      label.innerText = `${floor.userData.floorNumber} block`;
+      label.innerText = `${floor.userData.floorNumber} floor`;
       label.style.left = `${x}px`;
       label.style.top = `${y - 20}px`;
       label.style.display = 'block';
@@ -195,7 +194,7 @@ viewer.addSplatScene('../assets/Breig_future.ksplat', {
     mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
     raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(buildingGroup.children);
+    const intersects = raycaster.intersectObject(buildingGroup, true);
 
     if (intersects.length > 0) {
       const clickedFloor = intersects[0].object;

@@ -21,9 +21,9 @@ export function createBuilding() {
       const material = new THREE.MeshStandardMaterial({
         color,
         transparent: true,
-        opacity: 0,          // почти невидимый, но видимый для raycaster
-        depthWrite: false,
-        colorWrite: false
+        opacity: 1,          // почти невидимый, но видимый для raycaster
+        depthWrite: true,
+        colorWrite: true
       });
 
       const mesh = new THREE.Mesh(geometry, material);
@@ -43,5 +43,39 @@ export function createBuilding() {
   }
 
   buildingGroup.rotation.y = THREE.MathUtils.degToRad(-11);
+  return buildingGroup;
+}
+
+export function createBuildingTwo() {
+
+  
+// ===== 21-FLOOR SEGMENTED BUILDING =====
+const floorCount = 21;
+const floorHeight = 0.09;
+const buildingGroup = new THREE.Group();
+
+  // Начальная точка здания
+  const startX = 0.994504;
+  const startY = -2.47033;
+  const startZ = -5.4930717;
+
+for (let i = 0; i < floorCount; i++) {
+  const geometry = new THREE.BoxGeometry(0.45, floorHeight, 0.45);
+  const hue = (i / floorCount) * 360;
+  const color = new THREE.Color(`hsl(${hue}, 70%, 60%)`);
+  const material = new THREE.MeshStandardMaterial({
+    color,
+    transparent: true,
+    opacity: 1,
+    depthWrite: true,
+    colorWrite: true
+  });
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(startX, startY + i * floorHeight, startZ);
+  mesh.userData.floorNumber = floorCount - i;
+  buildingGroup.add(mesh);
+}
+
+buildingGroup.rotation.y = THREE.MathUtils.degToRad(-22);
   return buildingGroup;
 }

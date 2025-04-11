@@ -1,21 +1,25 @@
 import * as GaussianSplats3D from '../gaussian-splats-3d.module.js';
 import * as THREE from 'three';
 
+// ===== DEBUGGING SETUP =====
+const DEBUG = true;
+function log(...args) {
+  if (DEBUG) console.log('[DEBUG]', ...args);
+}
+
 // ===== SCENE SETUP =====
 const threeScene = new THREE.Scene();
-const lookAt = new THREE.Vector3(1.48304, -0.85783, -5.5530717);
+const lookAt = new THREE.Vector3(5.694504, -2.95283, 1.1030717);
 
 // ===== HORIZONTALLY ALIGNED SEGMENTS =====
-const floorCount = 12;
-const floorHeight = 0.14;       // этаж
-const floorWidth = 0.11;        // длина блока
-const floorDepth = 0.4;        // глубина блока
-const spacing = 0.0135;
-
+const floorCount = 8;
+const floorHeight = 0.5;
+const floorWidth = 0.45;
+const spacing = 0.05;
 const buildingGroup = new THREE.Group();
 
 for (let i = 0; i < floorCount; i++) {
-  const geometry = new THREE.BoxGeometry(floorWidth, floorHeight, floorDepth);
+  const geometry = new THREE.BoxGeometry(floorWidth, floorHeight, floorWidth);
   const hue = (i / floorCount) * 360;
   const color = new THREE.Color(`hsl(${hue}, 70%, 60%)`);
 
@@ -24,13 +28,12 @@ for (let i = 0; i < floorCount; i++) {
     transparent: true,
     opacity: 1,
     emissive: new THREE.Color(0x000000),
-    emissiveIntensity: 1,
-    depthWrite: false,
-    colorWrite: false
+    emissiveIntensity: 0,
+    depthWrite: true,
+    colorWrite: true
   });
 
   const mesh = new THREE.Mesh(geometry, material);
-
   const totalLength = floorCount * (floorWidth + spacing);
   const offsetX = -totalLength / 2 + i * (floorWidth + spacing) + floorWidth / 2;
 
@@ -40,7 +43,7 @@ for (let i = 0; i < floorCount; i++) {
   buildingGroup.add(mesh);
 }
 
-buildingGroup.rotation.y = THREE.MathUtils.degToRad(-13);
+buildingGroup.rotation.y = THREE.MathUtils.degToRad(-22);
 threeScene.add(buildingGroup);
 
 // ===== MARKER =====
@@ -113,8 +116,7 @@ const viewer = new GaussianSplats3D.Viewer({
   splatSortDistanceMapPrecision: 16,
   sceneFadeInRateMultiplier: 20,
   dynamicScene: false,
-  sharedMemoryForWorkers: false,
-  renderMode: GaussianSplats3D.RenderMode.Always, 
+  sharedMemoryForWorkers: false
 });
 
 // ===== LOAD SCENE & INTERACTION =====
@@ -146,6 +148,41 @@ viewer.addSplatScene('../assets/Breig_future.ksplat', {
   let hoveredFloor = null;
   let selectedFloor = null;
 
+  function animateOpacity(mesh, targetOpacity, targetEmissive = 0) {
+    gsap.to(mesh.material, {
+      opacity: targetOpacity,
+      emissiveIntensity: targetEmissive,
+      duration: 0.3,
+      onUpdate: () => {
+        mesh.material.needsUpdate = true;
+      }
+    });
+  }
+
+  function applyHoverMaterial(mesh) {
+    animateOpacity(mesh, 0.6, 0.6);
+    mesh.material.colorWrite = true;
+    mesh.material.depthWrite = true;
+    mesh.material.emissive.set(0x3399ff);
+    log('Hover applied to floor', mesh.userData.floorNumber);
+  }
+
+  function applySelectedMaterial(mesh) {
+    animateOpacity(mesh, 1, 1);
+    mesh.material.colorWrite = true;
+    mesh.material.depthWrite = true;
+    mesh.material.emissive.set(0xffaa00);
+    log('Selected floor', mesh.userData.floorNumber);
+  }
+
+  function resetMaterial(mesh) {
+    animateOpacity(mesh, 0, 0);
+    mesh.material.colorWrite = false;
+    mesh.material.depthWrite = false;
+    mesh.material.emissive.set(0x000000);
+    log('Reset floor', mesh.userData.floorNumber);
+  }
+
   function onMouseMove(event) {
     const rect = renderer.domElement.getBoundingClientRect();
     mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -154,18 +191,14 @@ viewer.addSplatScene('../assets/Breig_future.ksplat', {
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(buildingGroup.children);
 
+    const previousHovered = hoveredFloor;
+    hoveredFloor = null;
+
     if (intersects.length > 0) {
       const floor = intersects[0].object;
-      if (hoveredFloor && hoveredFloor !== selectedFloor) {
-        hoveredFloor.material.opacity = 0;
-        hoveredFloor.material.colorWrite = false;
-        hoveredFloor.material.depthWrite = false;
-      }
 
       if (floor !== selectedFloor) {
-        floor.material.opacity = 0.6;
-        floor.material.colorWrite = true;
-        floor.material.depthWrite = true;
+        applyHoverMaterial(floor);
       }
 
       hoveredFloor = floor;
@@ -174,18 +207,16 @@ viewer.addSplatScene('../assets/Breig_future.ksplat', {
       const x = (point.x * 0.5 + 0.5) * rect.width + rect.left;
       const y = (1 - (point.y * 0.5 + 0.5)) * rect.height + rect.top;
 
-      label.innerText = `${floor.userData.floorNumber} block`;
+      label.innerText = `${floor.userData.floorNumber} floor`;
       label.style.left = `${x}px`;
       label.style.top = `${y - 20}px`;
       label.style.display = 'block';
     } else {
-      if (hoveredFloor && hoveredFloor !== selectedFloor) {
-        hoveredFloor.material.opacity = 0;
-        hoveredFloor.material.colorWrite = false;
-        hoveredFloor.material.depthWrite = false;
-      }
-      hoveredFloor = null;
       label.style.display = 'none';
+    }
+
+    if (previousHovered && previousHovered !== selectedFloor && previousHovered !== hoveredFloor) {
+      resetMaterial(previousHovered);
     }
   }
 
@@ -201,24 +232,18 @@ viewer.addSplatScene('../assets/Breig_future.ksplat', {
       const clickedFloor = intersects[0].object;
 
       if (selectedFloor === clickedFloor) {
-        selectedFloor.material.opacity = 0;
-        selectedFloor.material.colorWrite = false;
-        selectedFloor.material.depthWrite = false;
+        resetMaterial(clickedFloor);
         selectedFloor = null;
         infoPanel.style.display = 'none';
         return;
       }
 
       if (selectedFloor) {
-        selectedFloor.material.opacity = 0;
-        selectedFloor.material.colorWrite = false;
-        selectedFloor.material.depthWrite = false;
+        resetMaterial(selectedFloor);
       }
 
       selectedFloor = clickedFloor;
-      clickedFloor.material.opacity = 1;
-      clickedFloor.material.colorWrite = true;
-      clickedFloor.material.depthWrite = true;
+      applySelectedMaterial(clickedFloor);
 
       const floorNum = clickedFloor.userData.floorNumber;
       textSection.innerHTML = `
@@ -230,9 +255,7 @@ viewer.addSplatScene('../assets/Breig_future.ksplat', {
       infoPanel.style.display = 'block';
     } else {
       if (selectedFloor) {
-        selectedFloor.material.opacity = 0;
-        selectedFloor.material.colorWrite = false;
-        selectedFloor.material.depthWrite = false;
+        resetMaterial(selectedFloor);
         selectedFloor = null;
       }
       infoPanel.style.display = 'none';
@@ -241,4 +264,13 @@ viewer.addSplatScene('../assets/Breig_future.ksplat', {
 
   window.addEventListener('mousemove', onMouseMove);
   window.addEventListener('click', onClick);
+
+  renderer.domElement.addEventListener('mouseleave', () => {
+    if (hoveredFloor && hoveredFloor !== selectedFloor) {
+      resetMaterial(hoveredFloor);
+      hoveredFloor = null;
+    }
+    label.style.display = 'none';
+    log('Mouse left canvas');
+  });
 }).catch(console.error);
