@@ -1,0 +1,103 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.navbar {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 0.75rem;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.navlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 0;
+  list-style: none;
+  color: rgb(255, 255, 255);
+  padding: 0.5rem 1rem;
+}
+
+.navlist__item {
+  padding: 0.5rem;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.navlist__item:hover,
+.active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.info-card {
+  position: fixed;
+  width: 17rem;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.info-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.info-card__content {
+  padding: 1rem;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+}
+
+.amenities-card {
+  top: 1rem;
+  right: 1rem;
+}
+
+.apartments-card {
+  top: 70%;
+  left: 1rem;
+  transform: translateY(-50%);
+}
+
+.apartment-options {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.apartment-options li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: 0.3s ease;
+}
+
+.apartment-options li:last-of-type {
+  border-bottom: 0;
+}
+
+.apartment-options li:hover {
+  padding-left: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+}
