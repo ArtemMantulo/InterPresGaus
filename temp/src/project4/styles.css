@@ -2,14 +2,6 @@ body {
   margin: 0;
   overflow: hidden;
 }
-.custom-button {
-  margin: 5px;
-  padding: 10px;
-  background-color: #3e3e3e;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
 
 .navbar {
   position: absolute;
@@ -82,7 +74,7 @@ body {
 }
 
 .apartments-card {
-  top: 50%;
+  top: 70%;
   left: 1rem;
   transform: translateY(-50%);
 }
@@ -97,6 +89,7 @@ body {
   padding: 0.5rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
+  border-radius: 0.5rem;
   transition: 0.3s ease;
 }
 
