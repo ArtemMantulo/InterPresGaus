@@ -4,24 +4,47 @@
     <meta charset="UTF-8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/test_breig/styles.css" />
     <title>3D Viewer</title>
-    <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-      }
-      .custom-button {
-        margin: 5px;
-        padding: 10px;
-        background-color: #3e3e3e;
-        color: white;
-        border: none;
-        cursor: pointer;
-      }
-    </style>
   </head>
   <body>
-    <div class="button-container" style="position: absolute; top: 10px; left: 10px"></div>
+    <div class="navbar">
+      <ul class="navlist">
+        <li class="navlist__item active">Home</li>
+        <li class="navlist__item">Apartments</li>
+        <li class="navlist__item">Amenities</li>
+      </ul>
+    </div>
+
+    <section class="info-card apartments-card hidden" id="apartmentsCard" aria-hidden="true">
+      <img src="apartments.jpg" alt="Apartments" />
+      <div class="apartments-card__content">
+        <h3>Apartments</h3>
+        <hr />
+        <p>
+          Calm, turquoise waters are protected by a coral reef, offering a serene and safe environment perfect for
+          swimming and relaxation.
+        </p>
+        <hr />
+        <ul class="apartment-options">
+          <li data-apt-id="apt-101">Apartments, block 1</li>
+          <li data-apt-id="apt-102">Apartments, block 2</li>
+          <li data-apt-id="apt-103">Apartments, block 3</li>
+          <li data-apt-id="villa">Villa</li>
+          <li data-apt-id="townhouse">Townhouse</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-card amenities-card hidden" id="amenitiesCard" aria-hidden="true">
+      <img src="your-image.jpg" alt="someText" />
+      <div class="amenities-card__content" id="amenitiesCardContent"></div>
+    </section>
+
+    <section class="info-card apartment-card hidden" id="apartmentCard" aria-hidden="true">
+      <img src="your-image.jpg" alt="someText" />
+      <div class="apartment-card__content" id="apartmentCardContent"></div>
+    </section>
 
     <script type="module" src="/src/test_breig/index.js"></script>
   </body>

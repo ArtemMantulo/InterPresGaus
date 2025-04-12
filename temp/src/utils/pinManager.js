@@ -1,5 +1,8 @@
 import gsap from 'gsap';
 
+const amenitiesCard = document.getElementById('amenitiesCard');
+const amenitiesContent = document.getElementById('amenitiesCardContent');
+
 // === Плавный перелёт камеры ===
 function flyTo(camera, controls, targetPosition) {
   const from = {
@@ -8,7 +11,7 @@ function flyTo(camera, controls, targetPosition) {
     z: camera.position.z,
     tx: controls.target.x,
     ty: controls.target.y,
-    tz: controls.target.z
+    tz: controls.target.z,
   };
 
   const to = {
@@ -17,7 +20,7 @@ function flyTo(camera, controls, targetPosition) {
     z: targetPosition.z + 2,
     tx: targetPosition.x,
     ty: targetPosition.y,
-    tz: targetPosition.z
+    tz: targetPosition.z,
   };
 
   gsap.to(from, {
@@ -33,13 +36,14 @@ function flyTo(camera, controls, targetPosition) {
       camera.position.set(from.x, from.y, from.z);
       controls.target.set(from.tx, from.ty, from.tz);
       controls.update();
-    }
+    },
   });
 }
 
 // === Создание одного пина ===
 export function createPin(labelText, iconSrc) {
   const wrapper = document.createElement('div');
+  wrapper.classList.add('pin-wrapper');
   wrapper.style.position = 'absolute';
   wrapper.style.zIndex = '1000';
   wrapper.style.display = 'none';
@@ -99,9 +103,12 @@ export function trackPinTo3D(pinEl, worldPosition, camera, renderer) {
   const rect = renderer.domElement.getBoundingClientRect();
 
   const isVisible =
-    projected.x >= -1 && projected.x <= 1 &&
-    projected.y >= -1 && projected.y <= 1 &&
-    projected.z >= 0 && projected.z <= 1;
+    projected.x >= -1 &&
+    projected.x <= 1 &&
+    projected.y >= -1 &&
+    projected.y <= 1 &&
+    projected.z >= 0 &&
+    projected.z <= 1;
 
   if (!isVisible) {
     pinEl.style.display = 'none';
@@ -118,14 +125,26 @@ export function trackPinTo3D(pinEl, worldPosition, camera, renderer) {
 
 // === Инициализация всех пинов ===
 export function initializePins(pinData, camera, renderer, controls) {
-  const allPins = pinData.map(({ label, icon, position }) => {
+  const allPins = pinData.map(({ label, icon, position, description }) => {
     const el = createPin(label, icon);
 
     // 🚀 Клик по пину -> камера летит к нему
     el.addEventListener('click', () => {
       flyTo(camera, controls, position);
-    });
 
+      amenitiesContent.innerHTML = '';
+
+      const title = document.createElement('h3');
+      title.textContent = label;
+
+      const descr = document.createElement('span');
+      descr.textContent = description;
+
+      amenitiesContent.appendChild(title);
+      amenitiesContent.appendChild(descr);
+
+      amenitiesCard.classList.remove('hidden');
+    });
     return { el, position };
   });
 
@@ -137,4 +156,9 @@ export function initializePins(pinData, camera, renderer, controls) {
   }
 
   animatePins();
+}
+
+export function clearPins() {
+  const pinElements = document.querySelectorAll('.pin-wrapper');
+  pinElements.forEach(pin => pin.remove());
 }
