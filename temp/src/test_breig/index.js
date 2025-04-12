@@ -1,5 +1,7 @@
 import * as GaussianSplats3D from '../gaussian-splats-3d.module.js';
 import * as THREE from 'three';
+import {initializePins} from '../utils/pinManager.js';
+
 
 // ===== SCENE SETUP =====
 const threeScene = new THREE.Scene();
@@ -7,9 +9,9 @@ const lookAt = new THREE.Vector3(1.48304, -0.85783, -5.5530717);
 
 // ===== HORIZONTALLY ALIGNED SEGMENTS =====
 const floorCount = 12;
-const floorHeight = 0.14;       // этаж
-const floorWidth = 0.11;        // длина блока
-const floorDepth = 0.4;        // глубина блока
+const floorHeight = 0.14;
+const floorWidth = 0.11;
+const floorDepth = 0.4;
 const spacing = 0.0135;
 
 const buildingGroup = new THREE.Group();
@@ -239,6 +241,24 @@ viewer.addSplatScene('../assets/Breig_future.ksplat', {
     }
   }
 
+  const pinData = [
+    { label: 'Parking', icon: '../assets/Pin.png', position: new THREE.Vector3(1.13333, -0.95538, -4.75120) },
+    { label: 'Pool', icon: '../assets/pool.png', position: new THREE.Vector3(2.32044, -1.02103, -4.15728) },
+    { label: 'Gym', icon: '../assets/gym_icon.png', position: new THREE.Vector3(	2.67868, -1.10441, -6.7061) },
+    { label: 'Lounge Area by the Pool', icon: '../assets/lounge_area_pool.png', position: new THREE.Vector3(	2.65646, -0.98472, -5.70358) },
+    { label: 'Children Playground', icon: '../assets/children_playground.png', position: new THREE.Vector3(		4.08201, -0.99597, -4.11901) },
+  ];
+  
+  initializePins(pinData, camera, renderer, controls)
+  
+
+
   window.addEventListener('mousemove', onMouseMove);
   window.addEventListener('click', onClick);
 }).catch(console.error);
+
+
+const mousePosition = viewer.disableMouse()
+
+//setTimeout(viewer.enebleMouse(mousePosition), 10000)
+//viewer.enebleMouse(mousePosition)

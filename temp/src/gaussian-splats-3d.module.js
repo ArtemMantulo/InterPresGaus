@@ -12102,6 +12102,18 @@ class Viewer {
 
     }();
 
+    disableMouse( )
+    {
+        let actualMouseposition = this.mousePosition
+        this.mousePosition = null;
+        return actualMouseposition;
+    }
+
+    enebleMouse(actualMouseposition)
+    {
+        this.mousePosition = actualMouseposition;
+    }
+
     onMouseClick(mouse) {
         this.mousePosition.set(mouse.offsetX, mouse.offsetY);
         this.checkForFocalPointChange();
