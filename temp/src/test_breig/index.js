@@ -5,11 +5,13 @@ import { initializePins, clearPins } from '../utils/pinManager.js';
 const navItems = document.querySelectorAll('.navlist__item');
 const amenitiesCard = document.getElementById('amenitiesCard');
 const apartmentsCard = document.getElementById('apartmentsCard');
+const apartmentCard = document.getElementById('apartmentCard');
 
 const aptcoors = {
   'apt-101': { x: 2.5, y: -0.6, z: -6.8 },
   'apt-102': { x: 1, y: -1, z: -1 },
   'apt-103': { x: 3, y: -3, z: -3 },
+  villa: { x: 5, y: -3, z: -3 },
 };
 
 const pinData = [
@@ -37,6 +39,12 @@ const aptData = {
   1: { aptNumber: 1, description: 'Some info about apt', size: 62 },
   2: { aptNumber: 2, description: 'Some info about apt', size: 54 },
   3: { aptNumber: 3, description: 'Some info about apt', size: 90 },
+  4: { aptNumber: 4, description: 'Some info about apt', size: 90 },
+  5: { aptNumber: 5, description: 'Some info about apt', size: 90 },
+  6: { aptNumber: 6, description: 'Some info about apt', size: 90 },
+  7: { aptNumber: 7, description: 'Some info about apt', size: 90 },
+  8: { aptNumber: 8, description: 'Some info about apt', size: 90 },
+  9: { aptNumber: 9, description: 'Some info about apt', size: 90 },
 };
 
 // ===== SCENE SETUP =====
@@ -173,6 +181,10 @@ viewer
     let selectedFloor = null;
 
     function onMouseMove(event) {
+      const currentActive = Array.from(document.getElementsByClassName('active'))[0];
+      if (currentActive.textContent !== 'Apartments') {
+        return;
+      }
       const rect = renderer.domElement.getBoundingClientRect();
       mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -298,8 +310,9 @@ navItems.forEach(item => {
 
     if (text === 'Amenities') {
       apartmentsCard.classList.add('hidden');
-      initializePins(pinData, viewer.camera, viewer.renderer, viewer.controls);
+      apartmentCard.classList.add('hidden');
       resetCameraView();
+      setTimeout(() => initializePins(pinData, viewer.camera, viewer.renderer, viewer.controls), 1000);
     } else if (text === 'Apartments') {
       amenitiesCard.classList.add('hidden');
       apartmentsCard.classList.remove('hidden');
@@ -307,6 +320,7 @@ navItems.forEach(item => {
     } else if (text === 'Home') {
       amenitiesCard.classList.add('hidden');
       apartmentsCard.classList.add('hidden');
+      apartmentCard.classList.add('hidden');
       resetCameraView();
       clearPins();
     }

@@ -125,7 +125,7 @@ export function trackPinTo3D(pinEl, worldPosition, camera, renderer) {
 
 // === Инициализация всех пинов ===
 export function initializePins(pinData, camera, renderer, controls) {
-  const allPins = pinData.map(({ label, icon, position, description }) => {
+  const allPins = pinData.map(({ label, icon, position, description, imgSrc }) => {
     const el = createPin(label, icon);
 
     // 🚀 Клик по пину -> камера летит к нему
@@ -134,12 +134,17 @@ export function initializePins(pinData, camera, renderer, controls) {
 
       amenitiesContent.innerHTML = '';
 
+      const img = document.createElement('img');
+      img.alt = 'Amenities alt';
+      img.src = icon;
+
       const title = document.createElement('h3');
       title.textContent = label;
 
       const descr = document.createElement('span');
       descr.textContent = description;
 
+      amenitiesContent.appendChild(img);
       amenitiesContent.appendChild(title);
       amenitiesContent.appendChild(descr);
 
