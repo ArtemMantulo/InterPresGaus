@@ -212,7 +212,7 @@ viewer
         const x = (point.x * 0.5 + 0.5) * rect.width + rect.left;
         const y = (1 - (point.y * 0.5 + 0.5)) * rect.height + rect.top;
 
-        label.innerText = `${floor.userData.floorNumber} block`;
+        label.innerText = `${floor.userData.floorNumber} floor`;
         label.style.left = `${x}px`;
         label.style.top = `${y - 20}px`;
         label.style.display = 'block';
@@ -223,10 +223,15 @@ viewer
           hoveredFloor.material.depthWrite = false;
         }
         hoveredFloor = null;
+        label.style.display = 'none';
       }
     }
 
     function onClick(event) {
+      const currentActive = Array.from(document.getElementsByClassName('active'))[0];
+      if (currentActive.textContent !== 'Apartments') {
+        return;
+      }
       const rect = renderer.domElement.getBoundingClientRect();
       mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
