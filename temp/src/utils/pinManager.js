@@ -125,31 +125,35 @@ export function trackPinTo3D(pinEl, worldPosition, camera, renderer) {
 
 // === Инициализация всех пинов ===
 export function initializePins(pinData, camera, renderer, controls) {
-  const allPins = pinData.map(({ label, icon, position, description, imgSrc }) => {
-    const el = createPin(label, icon);
+  const amenitiesCard = document.getElementById('amenitiesCard');
+  const amenitiesContent = document.getElementById('amenitiesCardContent');
+  const amenitiesTemplate = document.getElementById('amenitiesCardTemplate');
 
-    // 🚀 Клик по пину -> камера летит к нему
+  const allPins = pinData.map(({ label, icon, position, description, imgSrc }) => {
+    const el = createPin(label, icon, imgSrc);
+
     el.addEventListener('click', () => {
       flyTo(camera, controls, position);
 
+      // Очистка
       amenitiesContent.innerHTML = '';
 
-      const img = document.createElement('img');
-      img.alt = 'Amenities alt';
-      img.src = icon;
+      // Клонируем шаблон
+      const clone = amenitiesTemplate.content.cloneNode(true);
 
-      const title = document.createElement('h3');
-      title.textContent = label;
+      // Заполняем
+      const img = clone.querySelector('.amenities-img');
+      img.src = imgSrc;
+      img.alt = `Image of ${label}`;
 
-      const descr = document.createElement('span');
-      descr.textContent = description;
+      clone.querySelector('h3').textContent = label;
+      clone.querySelector('.amenities-description').textContent = description;
 
-      amenitiesContent.appendChild(img);
-      amenitiesContent.appendChild(title);
-      amenitiesContent.appendChild(descr);
-
+      // Вставка
+      amenitiesContent.appendChild(clone);
       amenitiesCard.classList.remove('hidden');
     });
+
     return { el, position };
   });
 

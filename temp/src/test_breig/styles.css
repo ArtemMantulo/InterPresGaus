@@ -1,4 +1,3 @@
-/* ===== Reset and Globals ===== */
 body {
   margin: 0;
   overflow: hidden;
@@ -47,14 +46,14 @@ body {
   position: fixed;
   padding: 1rem;
   width: 320px;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   color: #fff;
   border-radius: 0.75rem;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  z-index: 5;
+  z-index: 3;
 }
 
 .info-card img {
@@ -64,9 +63,8 @@ body {
 }
 
 .apartments-card__content,
-.amenities-card__content,
 .apartment-card__content {
-  padding: 1rem;
+  padding: 7px;
 }
 
 .hidden {
@@ -77,15 +75,34 @@ body {
 
 /* ===== Card Positions ===== */
 .apartments-card {
-  top: 70%;
+  bottom: 0.1px;
   left: 1rem;
-  transform: translateY(-50%);
 }
 
-.amenities-card,
+.amenities-card
+{
+  top: 1rem;
+  right: 1rem;
+}
 .apartment-card {
   top: 1rem;
   right: 1rem;
+}
+
+/* ===== Apartment Card - Desktop Layout ===== */
+.apartment-photo-wrapper {
+  margin: -50px -48px 1rem -47px;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+
+.apartment-photo {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 1rem;
 }
 
 /* ===== Apartment Options List ===== */
@@ -97,7 +114,7 @@ body {
 }
 
 .apartment-options li {
-  padding: 0.5rem 0;
+  padding: 0.5rem 0.3rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
   border-radius: 0.5rem;
@@ -131,6 +148,14 @@ body {
   margin-bottom: 12px;
 }
 
+.card-info {
+  display: flex;
+  gap: 91px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
 /* ===== Buttons ===== */
 .card-buttons {
   display: flex;
@@ -153,9 +178,264 @@ body {
 }
 
 .btn.secondary {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .btn:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+/* ===== Amenities Card Styles ===== */
+#amenitiesCard {
+  max-width: 340px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.amenities-img-wrapper {
+  margin: -1rem -1rem 1rem -1rem;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+.amenities-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.amenities-description {
+  margin-top: 0.5rem;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+.btn-back {
+  display: none;
+}
+
+.btn-street {
+  display: inline-block;
+}
+
+/* ===== Responsive Mobile Layout ===== */
+@media (max-width: 768px) {
+    .btn-back {
+    display: inline-block !important;
+  }
+
+  .btn-street {
+    display: none !important;
+  }
+  .info-card {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    height: 23vh;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    padding: 0.0rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 3;
+  }
+
+  .info-card img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .amenities-card__content {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .info-card h3 {
+    font-size: 16px;
+    margin-left: 0.3rem;
+  }
+
+  .apartment-options {
+    margin-top: 0.3rem; /* уменьшить */
+  }
+
+  .info-card p,
+  .apartment-options li {
+    font-size: 13px;
+    padding: 0.27rem;
+  }
+
+  .amenities-card__content {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .apartments-card__content {
+    padding: 12px;
+    left: 1rem;
+  }
+
+  .apartments-card__content h3 {
+    margin-bottom: 0.4rem; /* уменьшить */
+  }
+
+  .apartment-card__content {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .apartment-card {
+    top: auto !important;
+    height: 23vh;
+    left: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    z-index: 4;
+    bottom: calc(env(safe-area-inset-bottom, 10px) + 1rem);
+  }
+
+  .apartment-photo-wrapper {
+    height: 22vh;
+    display: flex;
+    flex-direction: row;
+    width: 170px;
+    height: auto;
+    margin: 0;
+  }
+
+  .apartment-photo {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    margin-bottom: 0;
+    border-radius: 0.5rem;
+  }
+
+  
+.apartment-card-right {
+  display: flex;
+  flex-direction:column;
+  justify-content: space-between;
+  flex: 1;
+  padding: 0.5rem 0;
+}
+
+.apartment-card-right h3 {
+  margin: 0;
+  padding-left: 10px;
+}
+
+.apartment-card-right .description {
+  font-size: 0.8rem;
+  margin: 0.1px;
+  padding-left: 10px;
+  padding-bottom: 0.1px;
+}
+
+.card-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin: 0.1rem 0 0.3rem 0; /* меньше верхнего и нижнего отступа */
+  gap: 0.5rem;
+  padding-left: 9px;
+  padding-right: 31px;
+}
+
+.card-info p.size {
+  min-width: 17px; /* или flex: 1 */
+}
+
+.card-info .availability {
+  text-align: right;
+}
+
+.card-buttons {
+  padding-left: 5px;
+  display: flex;
+  transform: translateY(-12px);
+  gap: 0.3rem;
+
+}
+
+.amenities-card {
+  position: fixed;
+  top: 490px !important;
+  max-width: 360px !important;
+  width: 400px !important;
+  height: 22vh;
+  left: 1rem;
+  right: 1rem !important;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  z-index: 5;
+  box-sizing: border-box;
+}
+
+.amenities-card__content {
+  padding: 0rem;
+  display: flex;
+  flex-direction: row;
+}
+
+#amenitiesCardContent {
+  padding: 1rem;
+}
+
+.amenities-img-wrapper {
+  height: 22vh;
+  display: flex;
+  flex-direction: row;
+  width:190px;
+}
+
+.amenities-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  margin-bottom: 0;
+  border-radius: 0.5rem;
+}
+
+.amenities-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 20px;
+  max-width: 240px;
+  flex: 1;
+}
+
+.amenities-text h3 {
+  margin: 0;
+  font-size: 1rem;
+  padding-left:4px;
+  
+}
+
+.amenities-description {
+  display: flex;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+
+}
+
+

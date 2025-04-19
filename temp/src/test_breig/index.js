@@ -7,44 +7,59 @@ const amenitiesCard = document.getElementById('amenitiesCard');
 const apartmentsCard = document.getElementById('apartmentsCard');
 const apartmentCard = document.getElementById('apartmentCard');
 
-const aptcoors = {
-  'apt-101': { x: 2.5, y: -0.6, z: -6.8 },
-  'apt-102': { x: 1, y: -1, z: -1 },
-  'apt-103': { x: 3, y: -3, z: -3 },
-  villa: { x: 5, y: -3, z: -3 },
-};
-
 const pinData = [
   {
     label: 'Parking',
-    icon: '../assets/Pin.png',
+    icon: '/assets/Pin.png',
     position: new THREE.Vector3(1.13333, -0.95538, -4.7512),
+    description: 'Secure and accessible parking with convenient entry and exit.',
+    imgSrc: "/assets/parking_photo.png"
   },
-  { label: 'Pool', icon: '../assets/pool.png', position: new THREE.Vector3(2.32044, -1.02103, -4.15728) },
-  { label: 'Gym', icon: '../assets/gym_icon.png', position: new THREE.Vector3(2.67868, -1.10441, -6.7061) },
+  { label: 'Pool', 
+    icon: '/assets/pool.png', 
+    position: new THREE.Vector3(2.32044, -1.02103, -4.15728),
+    description: 'Calm, turquoise waters are protected by a coral reet, offering a serene and safe environment perfect for swimming and relaxation.',
+    imgSrc: "/assets/children_playground_photo.png"
+
+  },
+  { label: 'Gym', 
+    icon: '/assets/gym_icon.png', 
+    position: new THREE.Vector3(2.67868, -1.10441, -6.7061),
+    description: 'Fully equipped gym for workout and physical activities.',
+    imgSrc: "/assets/gym_photo.png"
+  },
   {
     label: 'Lounge Area by the Pool',
-    icon: '../assets/lounge_area_pool.png',
+    icon: '/assets/lounge_area_pool.png',
     position: new THREE.Vector3(2.65646, -0.98472, -5.70358),
     description: 'Pool with a cozy lounge area, ideal for relaxation and gatherings.',
+    imgSrc: "/assets/pool_chill_area_photo.png"
   },
   {
     label: 'Children Playground',
-    icon: '../assets/children_playground.png',
+    icon: '/assets/children_playground.png',
     position: new THREE.Vector3(4.08201, -0.99597, -4.11901),
+    description: 'Safe and fun playground for kids, with diverse play equipment.',
+    imgSrc: '/assets/children_playground_photo.png'
   },
 ];
 
+const unitPhoto = '/assets/units_photo.png';
+
 const aptData = {
-  1: { aptNumber: 1, description: 'Some info about apt', size: 62 },
-  2: { aptNumber: 2, description: 'Some info about apt', size: 54 },
-  3: { aptNumber: 3, description: 'Some info about apt', size: 90 },
-  4: { aptNumber: 4, description: 'Some info about apt', size: 90 },
-  5: { aptNumber: 5, description: 'Some info about apt', size: 90 },
-  6: { aptNumber: 6, description: 'Some info about apt', size: 90 },
-  7: { aptNumber: 7, description: 'Some info about apt', size: 90 },
-  8: { aptNumber: 8, description: 'Some info about apt', size: 90 },
-  9: { aptNumber: 9, description: 'Some info about apt', size: 90 },
+  1: { aptNumber: 1, description: 'Poolside view unit A type', size: 62, image: unitPhoto, availability: "Available" },
+  2: { aptNumber: 2, description: 'Poolside view unit A type', size: 62, image: unitPhoto, availability: "Available" },
+  3: { aptNumber: 3, description: 'Poolside view unit B type', size: 54, image: unitPhoto, availability: "Available" },
+  4: { aptNumber: 4, description: 'Poolside view unit A type', size: 62, image: unitPhoto, availability: "Sold" },
+  5: { aptNumber: 5, description: 'Poolside view unit A type', size: 90, image: unitPhoto, availability: "Available" },
+  6: { aptNumber: 6, description: 'Poolside view unit A type', size: 90, image: unitPhoto, availability: "Available" },
+  7: { aptNumber: 7, description: 'Poolside view unit C type', size: 68, image: unitPhoto, availability: "Available" },
+  8: { aptNumber: 8, description: 'Poolside view unit A type', size: 90, image: unitPhoto, availability: "Available" },
+  
+  9: { aptNumber: 9, description: 'Poolside view unit A type', size: 90, image: '/assets/units_photo.png', availability: "Available"},
+  10: { aptNumber: 10, description: 'Poolside view unit A type', size: 90, image: '/assets/units_photo.png', availability: "Sold"},
+  11: { aptNumber: 11, description: 'Poolside view unit A type', size: 90, image: '/assets/units_photo.png', availability: "Available"},
+  12: { aptNumber: 12, description: 'Poolside view unit D type', size: 90, image: '/assets/units_photo.png', availability: "Available"},
 };
 
 // ===== SCENE SETUP =====
@@ -89,11 +104,6 @@ for (let i = 0; i < floorCount; i++) {
 buildingGroup.rotation.y = THREE.MathUtils.degToRad(-13);
 threeScene.add(buildingGroup);
 
-// ===== MARKER =====
-const marker = new THREE.Mesh(new THREE.SphereGeometry(0.05, 16, 16), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
-marker.position.copy(lookAt);
-threeScene.add(marker);
-
 // ===== LIGHTING =====
 threeScene.add(new THREE.AmbientLight(0xffffff, 0.4));
 const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
@@ -119,8 +129,8 @@ document.body.appendChild(label);
 const viewer = new GaussianSplats3D.Viewer({
   threeScene,
   cameraUp: [0, -1, 0],
-  initialCameraPosition: [-2.83355, -3.39966, -4.5543],
-  initialCameraLookAt: [2.88504, -0.80033, -4.34717],
+  initialCameraPosition: [1.10316, -3.17695, -9.93340],
+  initialCameraLookAt: [2.26650, -0.99005, -5.24780],
   inMemoryCompressionLevel: 1,
   renderMode: GaussianSplats3D.RenderMode.OnChange,
   sceneRevealMode: GaussianSplats3D.SceneRevealMode.Gradual,
@@ -134,24 +144,85 @@ const viewer = new GaussianSplats3D.Viewer({
 let controls;
 
 const resetCameraView = () => {
+  console.log(viewer.camera.position)
   gsap.to(viewer.camera.position, {
-    duration: 1.5,
+    duration: 2.5,
     x: -1.17621,
     y: -3.92368,
     z: -7.46254,
     onComplete: () => {
-      viewer.setupEventHandlers();
-      viewer.controls.enabled = true;
-      viewer.controls.enableZoom = true;
-      viewer.controls.enableRotate = true;
-      viewer.controls.enablePan = true;
-    },
+      viewer.setupEventHandlers()
+      controls.enabled = true;
+      controls.enableZoom = true;
+      controls.enableRotate = true;
+      controls.enablePan = true;
+    }
   });
 };
 
+const resetCameraViewWithDisabledControls = () => {
+  console.log(viewer.camera.position)
+  gsap.to(viewer.camera.position, {
+    duration: 2.5,
+    x: -1.17621,
+    y: -3.92368,
+    z: -7.46254,
+    onComplete: () => {
+      viewer
+      controls.enabled = true;
+      controls.enableZoom = true;
+      controls.enableRotate = true;
+      controls.enablePan = true;
+    }
+  });
+};
+
+// const resetCameraView = () => {
+//   const camera = viewer.camera;
+//   const controls = viewer.controls;
+
+//   const to = {
+//     x: 0.01909,
+//     y: -2.72932,
+//     z: -7.49616,
+//     targetX: 2.49640,   // замените на нужную точку
+//     targetY: -0.53319,
+//     targetZ: -5.33785
+//   };
+//   gsap.to({
+//     x: camera.position.x,
+//     y: camera.position.y,
+//     z: camera.position.z,
+//     targetX: controls.target.x,
+//     targetY: controls.target.y,
+//     targetZ: controls.target.z
+//   }, {
+//     duration: 2.5,
+//     x: to.x,
+//     y: to.y,
+//     z: to.z,
+//     targetX: to.targetX,
+//     targetY: to.targetY,
+//     targetZ: to.targetZ,
+//     ease: "power2.inOut",
+//     onUpdate: function () {
+//       camera.position.set(this.targets()[0].x, this.targets()[0].y, this.targets()[0].z);
+//       controls.target.set(this.targets()[0].targetX, this.targets()[0].targetY, this.targets()[0].targetZ);
+//       controls.update();
+//     },
+//     onComplete: () => {
+//       viewer.setupEventHandlers();
+//       controls.enabled = true;
+//       controls.enableZoom = true;
+//       controls.enableRotate = true;
+//       controls.enablePan = true;
+//     }
+//   });
+// };
+
 // ===== LOAD SCENE & INTERACTION =====
 viewer
-  .addSplatScene('../assets/Breig_future.ksplat', {
+  .addSplatScene('/assets/Breig_future.ksplat', {
     splatAlphaRemovalThreshold: 15,
     showLoadingUI: true,
     progressiveLoad: true,
@@ -181,104 +252,116 @@ viewer
     let selectedFloor = null;
 
     function onMouseMove(event) {
-      const currentActive = Array.from(document.getElementsByClassName('active'))[0];
-      if (currentActive.textContent !== 'Apartments') {
-        return;
-      }
-      const rect = renderer.domElement.getBoundingClientRect();
-      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      const currentActive = document.querySelector('.navlist__item.active');
+  if (!currentActive || currentActive.textContent.trim() !== 'Apartments') return;
 
-      raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObjects(buildingGroup.children);
+  // Только для мыши, пальца или стилуса
+  if (!['mouse', 'touch', 'pen'].includes(event.pointerType)) return;
 
-      if (intersects.length > 0) {
-        const floor = intersects[0].object;
-        if (hoveredFloor && hoveredFloor !== selectedFloor) {
-          hoveredFloor.material.opacity = 0;
-          hoveredFloor.material.colorWrite = false;
-          hoveredFloor.material.depthWrite = false;
-        }
+  const rect = renderer.domElement.getBoundingClientRect();
 
-        if (floor !== selectedFloor) {
-          floor.material.opacity = 0.6;
-          floor.material.colorWrite = true;
-          floor.material.depthWrite = true;
-        }
+  const pointer = new THREE.Vector2(
+    ((event.clientX - rect.left) / rect.width) * 2 - 1,
+    -((event.clientY - rect.top) / rect.height) * 2 + 1
+  );
 
-        hoveredFloor = floor;
+  raycaster.setFromCamera(pointer, camera);
+  const intersects = raycaster.intersectObjects(buildingGroup.children);
 
-        const point = intersects[0].point.clone().project(camera);
-        const x = (point.x * 0.5 + 0.5) * rect.width + rect.left;
-        const y = (1 - (point.y * 0.5 + 0.5)) * rect.height + rect.top;
+  if (intersects.length > 0) {
+    const floor = intersects[0].object;
 
-        label.innerText = `${floor.userData.floorNumber} floor`;
-        label.style.left = `${x}px`;
-        label.style.top = `${y - 20}px`;
-        label.style.display = 'block';
-      } else {
-        if (hoveredFloor && hoveredFloor !== selectedFloor) {
-          hoveredFloor.material.opacity = 0;
-          hoveredFloor.material.colorWrite = false;
-          hoveredFloor.material.depthWrite = false;
-        }
-        hoveredFloor = null;
-        label.style.display = 'none';
-      }
+    if (hoveredFloor && hoveredFloor !== selectedFloor) {
+      hoveredFloor.material.opacity = 0;
+      hoveredFloor.material.colorWrite = false;
+      hoveredFloor.material.depthWrite = false;
+    }
+
+    if (floor !== selectedFloor) {
+      floor.material.opacity = 0.6;
+      floor.material.colorWrite = true;
+      floor.material.depthWrite = true;
+    }
+
+    hoveredFloor = floor;
+
+    const point = intersects[0].point.clone().project(camera);
+    const x = (point.x * 0.5 + 0.5) * rect.width + rect.left;
+    const y = (1 - (point.y * 0.5 + 0.5)) * rect.height + rect.top;
+
+    label.innerText = `Unit ${floor.userData.floorNumber}`;
+    label.style.left = `${x}px`;
+    label.style.top = `${y - 20}px`;
+    label.style.display = 'block';
+  } else {
+    if (hoveredFloor && hoveredFloor !== selectedFloor) {
+      hoveredFloor.material.opacity = 0;
+      hoveredFloor.material.colorWrite = false;
+      hoveredFloor.material.depthWrite = false;
+    }
+    hoveredFloor = null;
+    label.style.display = 'none';
+  }
     }
 
     function onClick(event) {
-      const currentActive = Array.from(document.getElementsByClassName('active'))[0];
-      if (currentActive.textContent !== 'Apartments') {
-        return;
-      }
-      const rect = renderer.domElement.getBoundingClientRect();
-      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-
-      raycaster.setFromCamera(mouse, camera);
+      const currentActive = document.querySelector('.navlist__item.active');
+      if (!currentActive || currentActive.textContent.trim() !== 'Apartments') return;
+    
+      const isTouch = event.type.startsWith('touch') || event.pointerType === 'touch';
+      const input = isTouch ? (event.touches ? event.touches[0] : event) : event;
+      if (!input) return;
+    
+      const rect = viewer.renderer.domElement.getBoundingClientRect();
+    
+      const mouse = new THREE.Vector2(
+        ((input.clientX - rect.left) / rect.width) * 2 - 1,
+        -((input.clientY - rect.top) / rect.height) * 2 + 1
+      );
+    
+      const raycaster = new THREE.Raycaster();
+      raycaster.setFromCamera(mouse, viewer.camera);
       const intersects = raycaster.intersectObjects(buildingGroup.children);
-
+    
       if (intersects.length > 0) {
         const clickedFloor = intersects[0].object;
-
-        if (selectedFloor === clickedFloor) {
-          hideFloor(selectedFloor);
-          selectedFloor = null;
-          return;
-        }
-
-        if (selectedFloor) {
-          hideFloor(selectedFloor);
-        }
-
-        selectedFloor = clickedFloor;
-        showFloor(clickedFloor);
-
         const floorNum = clickedFloor.userData.floorNumber;
         const data = aptData[floorNum];
-
-        // Show the apartment card and populate with data
+    
+        // ✅ Подсветка
+        if (selectedFloor && selectedFloor !== clickedFloor) {
+          hideFloor(selectedFloor);
+        }
+        showFloor(clickedFloor);
+        selectedFloor = clickedFloor;
+    
+        // 📦 Отображение карточки
         const apartmentCard = document.getElementById('apartmentCard');
         const apartmentCardContent = document.getElementById('apartmentCardContent');
+        apartmentCardContent.innerHTML = '';
+    
         if (data) {
-          apartmentCardContent.innerHTML = `
-            <h3>Apartment ${data.aptNumber}</h3>
-            <p class="description">${data.description}</p>
-            <p class="size">sq: <strong>${data.size} m²</strong></p>
-            <div class="card-buttons">
-              <button class="btn primary">▶ Visit unit</button>
-              <button class="btn secondary">Street View</button>
-            </div>
-          `;
+          const template = document.getElementById('apartmentCardTemplate');
+          const clone = template.content.cloneNode(true);
+    
+          clone.querySelector('img').src = data.image;
+          clone.querySelector('img').alt = `Apartment ${data.aptNumber}`;
+          clone.querySelector('h3').textContent = `Unit ${data.aptNumber}`;
+          clone.querySelector('.description').textContent = data.description;
+          clone.querySelector('.size strong').textContent = `${data.size} m²`;
+          clone.querySelector('.availability').textContent = data.availability;
+    
+          apartmentCardContent.appendChild(clone);
+    
+          if (window.innerWidth <= 768) {
+            apartmentsCard.classList.add('hidden');
+          }
+    
           apartmentCard.classList.remove('hidden');
         } else {
           apartmentCardContent.innerHTML = `<h3>No data for apartment ${floorNum}</h3>`;
           apartmentCard.classList.remove('hidden');
         }
-      } else {
-        hideFloor(selectedFloor);
-        selectedFloor = null;
       }
     }
 
@@ -294,15 +377,25 @@ viewer
       floor.material.depthWrite = true;
     }
 
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('click', onClick);
+    document.body.addEventListener('click', (e) => {
+      const backBtn = e.target.closest('.btn-back');
+      if (backBtn) {
+        apartmentCard.classList.add('hidden');
+        apartmentsCard.classList.remove('hidden');
+    
+        // Убрать подсветку с выбранного блока
+        if (selectedFloor) {
+          hideFloor(selectedFloor);
+          selectedFloor = null;
+        }
+      }
+    });
+    // window.addEventListener('mousemove', onMouseMove);
+    // window.addEventListener('click', onClick);
+    window.addEventListener('pointerdown', onClick);
+    window.addEventListener('pointermove', onMouseMove);
   })
   .catch(console.error);
-
-// const mousePosition = viewer.disableMouse();
-
-//setTimeout(viewer.enebleMouse(mousePosition), 10000)
-//viewer.enebleMouse(mousePosition)
 
 navItems.forEach(item => {
   item.addEventListener('click', () => {
@@ -322,6 +415,7 @@ navItems.forEach(item => {
       amenitiesCard.classList.add('hidden');
       apartmentsCard.classList.remove('hidden');
       clearPins();
+      resetCameraViewWithDisabledControls();
     } else if (text === 'Home') {
       amenitiesCard.classList.add('hidden');
       apartmentsCard.classList.add('hidden');
@@ -339,21 +433,99 @@ document.querySelectorAll('.apartment-options li').forEach(li => {
   });
 });
 
+const aptcoors = {
+  'apt-101': {
+    x: 2.50114,
+    y: -1.5,
+    z: -7,
+    target: { x: 2.5, y: -1, z: -5.7 }
+  },
+  'apt-102': {
+    x: 3.86658,
+    y: -1.45791,
+    z: -7.04782,
+    target: { x: 3.27752, y: -0.94184, z: -6.28653 }
+  },
+  'apt-103': {
+    x: 4.99252,
+    y: -1.95072,
+    z: -5.10572,
+    target: { x: 3.92374, y: -0.84633, z: -3.56496 }
+  },
+  villas: {
+    x: 5.35342,
+    y: -1.55906,
+    z: -5.00447,
+    target: { x: 4, y: -0.83, z: -5 }
+  }
+};
+
 function moveCameraToApartment(aptName) {
-  const camera = viewer.camera;
+ const camera = viewer.camera;
+  const targetData = aptcoors[aptName];
 
-  gsap.to(camera.position, {
-    duration: 1.5,
-    x: aptcoors[aptName].x,
-    y: aptcoors[aptName].y,
-    z: aptcoors[aptName].z,
-    onComplete: () => {
-      viewer.controls.enabled = false;
-      viewer.controls.enableZoom = false;
-      viewer.controls.enableRotate = false;
-      viewer.controls.enablePan = false;
+  if (!targetData) {
+    console.warn(`Нет координат для ${aptName}`);
+    return;
+  }
+
+  const from = {
+    camX: camera.position.x,
+    camY: camera.position.y,
+    camZ: camera.position.z,
+    targetX: controls.target.x,
+    targetY: controls.target.y,
+    targetZ: controls.target.z
+  };
+
+  const to = {
+    camX: targetData.x,
+    camY: targetData.y,
+    camZ: targetData.z,
+    targetX: targetData.target.x,
+    targetY: targetData.target.y,
+    targetZ: targetData.target.z
+  };
+
+  gsap.to(from, {
+    duration: 2.5,
+    ease: 'power2.inOut',
+    camX: to.camX,
+    camY: to.camY,
+    camZ: to.camZ,
+    targetX: to.targetX,
+    targetY: to.targetY,
+    targetZ: to.targetZ,
+    onUpdate: () => {
+      camera.position.set(from.camX, from.camY, from.camZ);
+      controls.target.set(from.targetX, from.targetY, from.targetZ);
+      controls.update();
     },
+    onComplete: () => {
+       viewer.controls.enabled = false;
+       viewer.controls.enableZoom = false;
+       viewer.controls.enableRotate = false;
+       viewer.controls.enablePan = false;
+    }
   });
-
   viewer.removeEventHandlers();
 }
+
+// function moveCameraToApartment(aptName) {
+//   const camera = viewer.camera;
+
+//   gsap.to(camera.position, {
+//     duration: 2.5,
+//     x: aptcoors[aptName].x,
+//     y: aptcoors[aptName].y,
+//     z: aptcoors[aptName].z,
+//     onComplete: () => {
+//       viewer.controls.enabled = false;
+//       viewer.controls.enableZoom = false;
+//       viewer.controls.enableRotate = false;
+//       viewer.controls.enablePan = false;
+//     },
+//   });
+
+//   viewer.removeEventHandlers();
+// }

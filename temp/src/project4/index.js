@@ -90,10 +90,9 @@ document.body.appendChild(infoPanel);
 
 // ===== VIEWER SETUP =====
 const viewer = new GaussianSplats3D.Viewer({
-  threeScene,
   cameraUp: [0, -1, 0],
-  initialCameraPosition: [0.71449, 2.15657, 3.88348],
-  initialCameraLookAt: [-0.40116, 4.23665, 0.21145],
+  initialCameraPosition: [-3.37861, -1.94630, 4.32924],
+  initialCameraLookAt: [-2.30434, 0.23717, -0.30859],
   inMemoryCompressionLevel: 1,
   renderMode: GaussianSplats3D.RenderMode.OnChange,
   sceneRevealMode: GaussianSplats3D.SceneRevealMode.Gradual,
@@ -104,7 +103,7 @@ const viewer = new GaussianSplats3D.Viewer({
 });
 
 // ===== LOAD SCENE & INTERACTION =====
-viewer.addSplatScene('../assets/atrium2crop.ksplat', {
+viewer.addSplatScene('/assets/atrium2crop.ksplat', {
   splatAlphaRemovalThreshold: 15,
   showLoadingUI: true,
   progressiveLoad: true,

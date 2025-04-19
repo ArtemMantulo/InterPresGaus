@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="stylesheet" href="/src/test_breig/styles.css" />
     <title>3D Viewer</title>
   </head>
@@ -17,21 +17,19 @@
     </div>
 
     <section class="info-card apartments-card hidden" id="apartmentsCard" aria-hidden="true">
-      <img src="apartments.jpg" alt="Apartments" />
+      <img src="/assets/Breig_shot_05_v01.png" alt="Apartments" />
       <div class="apartments-card__content">
         <h3>Apartments</h3>
-        <hr />
-        <p>
-          Calm, turquoise waters are protected by a coral reef, offering a serene and safe environment perfect for
-          swimming and relaxation.
+        <hr class="mobile-hide"/>
+        <p class="mobile-hide">
+          Calm, turquoise waters are protected by a coral reef, offering a serene and safe environment perfect for swimming and relaxation.
         </p>
-        <hr />
+        <hr class="mobile-hide" />
         <ul class="apartment-options">
           <li data-apt-id="apt-101">Apartments, block 1</li>
           <li data-apt-id="apt-102">Apartments, block 2</li>
           <li data-apt-id="apt-103">Apartments, block 3</li>
-          <li data-apt-id="villa">Villa</li>
-          <li data-apt-id="townhouse">Townhouse</li>
+          <li data-apt-id="villas">Villa</li>
         </ul>
       </div>
     </section>
@@ -43,6 +41,40 @@
     <section class="info-card apartment-card hidden" id="apartmentCard" aria-hidden="true">
       <div class="apartment-card__content" id="apartmentCardContent"></div>
     </section>
+
+    <template id="amenitiesCardTemplate">
+      <div class="amenities-card__content amenities-card-layout">
+        <div class="amenities-img-wrapper">
+          <img src="" alt="" class="amenities-img" />
+        </div>
+        <div class="amenities-text">
+          <h3></h3>
+          <p class="amenities-description"></p>
+        </div>
+      </div>
+    </template>
+
+    <!-- 🧩 Apartment Card Template -->
+<template id="apartmentCardTemplate">
+  <div class="apartment-card__content">
+    <div class="apartment-photo-wrapper">
+      <img src="" alt="" class="apartment-photo" />
+    </div>
+
+    <div class="apartment-card-right">
+      <h3></h3>
+      <p class="description"></p>
+      <div class="card-info">
+        <p class="size">sq: <strong></strong></p>
+        <p class="availability"></p>
+      </div>
+      <div class="card-buttons"><button class="btn secondary btn-back">← Back</button>
+        <button class="btn primary">▶ Visit unit</button>
+        <button class="btn secondary btn-street">Street View</button>
+      </div>
+    </div>
+  </div>
+</template>
 
     <script type="module" src="/src/test_breig/index.js"></script>
   </body>
