@@ -44,27 +44,55 @@ body {
 /* ===== Info Cards Base ===== */
 .info-card {
   position: fixed;
-  padding: 1rem;
-  width: 320px;
+  width: 23rem;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   color: #fff;
-  border-radius: 0.75rem;
+  border-radius: 2.875rem;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   z-index: 3;
 }
 
-.info-card img {
+.info-card > img {
   width: 100%;
   height: auto;
   display: block;
 }
 
-.apartments-card__content,
-.apartment-card__content {
-  padding: 7px;
+.apartments-card__content {
+  padding: 1.5rem;
+  background-color: rgba(88, 88, 88, 255);
+}
+
+.apartments-card__content h3 {
+  font-size: 1.5rem !important;
+  color: #fff;
+}
+
+.apartments-card__content p {
+  color: rgba(188, 188, 188, 255) !important;
+  font-size: 1rem !important;
+  margin: 0.25rem 0;
+}
+
+.apartments-card__content hr {
+  background-color: rgba(109, 109, 109, 255);
+  height: 2px;
+  border: none;
+}
+
+.apartments-card__content .details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(188, 188, 188, 255);
+  margin-bottom: 0.75rem;
+}
+
+.apartments-card__content .details .highlighted-text {
+  color: #fff;
 }
 
 .hidden {
@@ -77,13 +105,15 @@ body {
 .apartments-card {
   bottom: 0.1px;
   left: 1rem;
+  padding: 0;
+  border-radius: 2.875rem;
 }
 
-.amenities-card
-{
+.amenities-card {
   top: 1rem;
   right: 1rem;
 }
+
 .apartment-card {
   top: 1rem;
   right: 1rem;
@@ -91,7 +121,6 @@ body {
 
 /* ===== Apartment Card - Desktop Layout ===== */
 .apartment-photo-wrapper {
-  margin: -50px -48px 1rem -47px;
   overflow: hidden;
   border-radius: 8px 8px 0 0;
 }
@@ -102,22 +131,26 @@ body {
   object-fit: cover;
   display: block;
   border-radius: 8px 8px 0 0;
-  margin-bottom: 1rem;
 }
 
 /* ===== Apartment Options List ===== */
 .apartment-options {
   list-style: none;
   padding: 0;
-  margin-top: 1rem;
+  margin-top: 0;
   margin-bottom: 0;
 }
 
 .apartment-options li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 19px;
   padding: 0.5rem 0.3rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
+  padding-left: 0.75rem;
   transition: padding-left 0.3s ease, background-color 0.3s ease;
 }
 
@@ -126,8 +159,18 @@ body {
 }
 
 .apartment-options li:hover {
-  padding-left: 0.5rem;
+  padding-left: 1rem;
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+.apartment-options img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.apartment-card-right {
+  padding: 1rem 1.5rem;
+  background-color: rgba(88, 88, 88, 255);
 }
 
 /* ===== Card Content Details ===== */
@@ -140,30 +183,33 @@ body {
 .description {
   font-size: 14px;
   line-height: 1.5;
-  margin: 8px 0;
 }
 
 .size {
   font-size: 14px;
-  margin-bottom: 12px;
+}
+
+.availability,
+.size {
+  margin: 0;
 }
 
 .card-info {
   display: flex;
-  gap: 91px;
+  justify-content: space-between;
   font-size: 14px;
-  margin-bottom: 16px;
   color: #fff;
 }
 
 /* ===== Buttons ===== */
 .card-buttons {
   display: flex;
+  justify-content: space-between;
   gap: 12px;
+  margin-top: 2rem;
 }
 
 .btn {
-  flex: 1;
   padding: 8px 12px;
   border: none;
   border-radius: 8px;
@@ -188,26 +234,28 @@ body {
 /* ===== Amenities Card Styles ===== */
 #amenitiesCard {
   max-width: 340px;
-  background: rgba(0, 0, 0, 0.45);
+  background-color: rgba(88, 88, 88, 255);
   color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 46px;
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  padding: 0;
 }
 
 .amenities-img-wrapper {
-  margin: -1rem -1rem 1rem -1rem;
   overflow: hidden;
   border-radius: 12px 12px 0 0;
 }
 
 .amenities-img {
+  max-height: 190px;
   width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
+}
+
+.amenities-text {
+  padding: 1rem 1.5rem;
 }
 
 .amenities-description {
@@ -225,10 +273,24 @@ body {
   display: inline-block;
 }
 
+.btn-street,
+.btn.primary {
+  border-radius: 500px;
+  width: 150px !important;
+}
+
 /* ===== Responsive Mobile Layout ===== */
 @media (max-width: 768px) {
-    .btn-back {
+  .btn-back {
     display: inline-block !important;
+  }
+
+  .btn-back,
+  .btn.primary {
+    flex: 1;
+    border-radius: 500px;
+    padding: 0 0.5rem;
+    height: 2.5rem;
   }
 
   .btn-street {
@@ -237,12 +299,13 @@ body {
   .info-card {
     position: fixed;
     right: 1rem;
+    top: unset;
     bottom: 1rem;
     height: 23vh;
     width: auto;
     display: flex;
     flex-direction: row;
-    padding: 0.0rem;
+    padding: 0rem;
     border-radius: 0.75rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
@@ -261,7 +324,7 @@ body {
   }
 
   .amenities-card__content {
-    padding: 0.5rem 0.75rem;
+    padding: 1.5rem;
   }
 
   .info-card h3 {
@@ -279,13 +342,10 @@ body {
     padding: 0.27rem;
   }
 
-  .amenities-card__content {
-    padding: 0.5rem 0.75rem;
-  }
-
   .apartments-card__content {
     padding: 12px;
     left: 1rem;
+    width: 100%;
   }
 
   .apartments-card__content h3 {
@@ -296,6 +356,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: row;
+    width: 100%;
   }
 
   .apartment-card {
@@ -306,6 +367,7 @@ body {
     flex-direction: row;
     align-items: stretch;
     z-index: 4;
+    background-color: rgba(87, 87, 87, 255);
     bottom: calc(env(safe-area-inset-bottom, 10px) + 1rem);
   }
 
@@ -326,116 +388,110 @@ body {
     border-radius: 0.5rem;
   }
 
-  
-.apartment-card-right {
-  display: flex;
-  flex-direction:column;
-  justify-content: space-between;
-  flex: 1;
-  padding: 0.5rem 0;
+  .apartment-card-right {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 0.5rem 0.5rem 0 0;
+  }
+
+  .apartment-card-right h3 {
+    margin: 0;
+    padding-left: 10px;
+  }
+
+  .apartment-card-right .description {
+    font-size: 0.8rem;
+    padding-left: 10px;
+  }
+
+  .card-info {
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.85rem;
+    margin: 0.1rem 0 0; /* меньше верхнего и нижнего отступа */
+    gap: 0.5rem;
+  }
+
+  .card-info p.size {
+    min-width: 17px; /* или flex: 1 */
+  }
+
+  .card-info .availability {
+    text-align: right;
+  }
+
+  .size,
+  .availability {
+    padding: 0 !important;
+  }
+
+  .card-buttons {
+    padding-left: 5px;
+    display: flex;
+    transform: translateY(-12px);
+    gap: 0.3rem;
+    flex: 1;
+    margin-top: 0;
+  }
+
+  .amenities-card {
+    position: absolute;
+    bottom: 1rem !important;
+    max-width: 360px !important;
+    width: 400px !important;
+    height: 22vh;
+    left: 1rem;
+    right: 1rem !important;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border-radius: 0.75rem !important;
+    z-index: 5;
+    box-sizing: border-box;
+    will-change: transform, opacity;
+  }
+
+  .amenities-card__content {
+    padding: 0rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .amenities-img-wrapper {
+    height: 22vh;
+    display: flex;
+    flex-direction: row;
+    width: 190px;
+  }
+
+  .amenities-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    margin-bottom: 0;
+    border-radius: 0.5rem;
+  }
+
+  .amenities-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 12px;
+    max-width: 240px;
+    flex: 1;
+  }
+
+  .amenities-text h3 {
+    margin: 0;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .amenities-description {
+    display: flex;
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0 !important;
+  }
 }
-
-.apartment-card-right h3 {
-  margin: 0;
-  padding-left: 10px;
-}
-
-.apartment-card-right .description {
-  font-size: 0.8rem;
-  margin: 0.1px;
-  padding-left: 10px;
-  padding-bottom: 0.1px;
-}
-
-.card-info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  margin: 0.1rem 0 0.3rem 0; /* меньше верхнего и нижнего отступа */
-  gap: 0.5rem;
-  padding-left: 9px;
-  padding-right: 31px;
-}
-
-.card-info p.size {
-  min-width: 17px; /* или flex: 1 */
-}
-
-.card-info .availability {
-  text-align: right;
-}
-
-.card-buttons {
-  padding-left: 5px;
-  display: flex;
-  transform: translateY(-12px);
-  gap: 0.3rem;
-
-}
-
-.amenities-card {
-  position: fixed;
-  top: 490px !important;
-  max-width: 360px !important;
-  width: 400px !important;
-  height: 22vh;
-  left: 1rem;
-  right: 1rem !important;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  z-index: 5;
-  box-sizing: border-box;
-}
-
-.amenities-card__content {
-  padding: 0rem;
-  display: flex;
-  flex-direction: row;
-}
-
-#amenitiesCardContent {
-  padding: 1rem;
-}
-
-.amenities-img-wrapper {
-  height: 22vh;
-  display: flex;
-  flex-direction: row;
-  width:190px;
-}
-
-.amenities-img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover;
-  margin-bottom: 0;
-  border-radius: 0.5rem;
-}
-
-.amenities-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-left: 20px;
-  max-width: 240px;
-  flex: 1;
-}
-
-.amenities-text h3 {
-  margin: 0;
-  font-size: 1rem;
-  padding-left:4px;
-  
-}
-
-.amenities-description {
-  display: flex;
-  font-size: 0.9rem;
-  margin: 0;
-}
-
-
-}
-
-

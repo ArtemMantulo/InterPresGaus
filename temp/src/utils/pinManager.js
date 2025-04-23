@@ -1,8 +1,5 @@
 import gsap from 'gsap';
 
-const amenitiesCard = document.getElementById('amenitiesCard');
-const amenitiesContent = document.getElementById('amenitiesCardContent');
-
 // === Плавный перелёт камеры ===
 function flyTo(camera, controls, targetPosition) {
   const from = {
@@ -45,7 +42,7 @@ export function createPin(labelText, iconSrc) {
   const wrapper = document.createElement('div');
   wrapper.classList.add('pin-wrapper');
   wrapper.style.position = 'absolute';
-  wrapper.style.zIndex = '1000';
+  wrapper.style.zIndex = '2';
   wrapper.style.display = 'none';
   wrapper.style.pointerEvents = 'auto';
   wrapper.style.transition = 'transform 0.2s ease';

@@ -13,53 +13,79 @@ const pinData = [
     icon: '/assets/Pin.png',
     position: new THREE.Vector3(1.13333, -0.95538, -4.7512),
     description: 'Secure and accessible parking with convenient entry and exit.',
-    imgSrc: "/assets/parking_photo.png"
+    imgSrc: '/assets/parking_photo.png',
   },
-  { label: 'Pool', 
-    icon: '/assets/pool.png', 
+  {
+    label: 'Pool',
+    icon: '/assets/pool.png',
     position: new THREE.Vector3(2.32044, -1.02103, -4.15728),
-    description: 'Calm, turquoise waters are protected by a coral reet, offering a serene and safe environment perfect for swimming and relaxation.',
-    imgSrc: "/assets/children_playground_photo.png"
-
+    description:
+      'Calm, turquoise waters are protected by a coral reet, offering a serene and safe environment perfect for swimming and relaxation.',
+    imgSrc: '/assets/children_playground_photo.png',
   },
-  { label: 'Gym', 
-    icon: '/assets/gym_icon.png', 
+  {
+    label: 'Gym',
+    icon: '/assets/gym_icon.png',
     position: new THREE.Vector3(2.67868, -1.10441, -6.7061),
     description: 'Fully equipped gym for workout and physical activities.',
-    imgSrc: "/assets/gym_photo.png"
+    imgSrc: '/assets/gym_photo.png',
   },
   {
     label: 'Lounge Area by the Pool',
     icon: '/assets/lounge_area_pool.png',
     position: new THREE.Vector3(2.65646, -0.98472, -5.70358),
     description: 'Pool with a cozy lounge area, ideal for relaxation and gatherings.',
-    imgSrc: "/assets/pool_chill_area_photo.png"
+    imgSrc: '/assets/pool_chill_area_photo.png',
   },
   {
     label: 'Children Playground',
     icon: '/assets/children_playground.png',
     position: new THREE.Vector3(4.08201, -0.99597, -4.11901),
     description: 'Safe and fun playground for kids, with diverse play equipment.',
-    imgSrc: '/assets/children_playground_photo.png'
+    imgSrc: '/assets/children_playground_photo.png',
   },
 ];
 
 const unitPhoto = '/assets/units_photo.png';
 
 const aptData = {
-  1: { aptNumber: 1, description: 'Poolside view unit A type', size: 62, image: unitPhoto, availability: "Available" },
-  2: { aptNumber: 2, description: 'Poolside view unit A type', size: 62, image: unitPhoto, availability: "Available" },
-  3: { aptNumber: 3, description: 'Poolside view unit B type', size: 54, image: unitPhoto, availability: "Available" },
-  4: { aptNumber: 4, description: 'Poolside view unit A type', size: 62, image: unitPhoto, availability: "Sold" },
-  5: { aptNumber: 5, description: 'Poolside view unit A type', size: 90, image: unitPhoto, availability: "Available" },
-  6: { aptNumber: 6, description: 'Poolside view unit A type', size: 90, image: unitPhoto, availability: "Available" },
-  7: { aptNumber: 7, description: 'Poolside view unit C type', size: 68, image: unitPhoto, availability: "Available" },
-  8: { aptNumber: 8, description: 'Poolside view unit A type', size: 90, image: unitPhoto, availability: "Available" },
-  
-  9: { aptNumber: 9, description: 'Poolside view unit A type', size: 90, image: '/assets/units_photo.png', availability: "Available"},
-  10: { aptNumber: 10, description: 'Poolside view unit A type', size: 90, image: '/assets/units_photo.png', availability: "Sold"},
-  11: { aptNumber: 11, description: 'Poolside view unit A type', size: 90, image: '/assets/units_photo.png', availability: "Available"},
-  12: { aptNumber: 12, description: 'Poolside view unit D type', size: 90, image: '/assets/units_photo.png', availability: "Available"},
+  1: { aptNumber: 1, description: 'Poolside view unit A type', size: 62, image: unitPhoto, availability: 'Available' },
+  2: { aptNumber: 2, description: 'Poolside view unit A type', size: 62, image: unitPhoto, availability: 'Available' },
+  3: { aptNumber: 3, description: 'Poolside view unit B type', size: 54, image: unitPhoto, availability: 'Available' },
+  4: { aptNumber: 4, description: 'Poolside view unit A type', size: 62, image: unitPhoto, availability: 'Sold' },
+  5: { aptNumber: 5, description: 'Poolside view unit A type', size: 90, image: unitPhoto, availability: 'Available' },
+  6: { aptNumber: 6, description: 'Poolside view unit A type', size: 90, image: unitPhoto, availability: 'Available' },
+  7: { aptNumber: 7, description: 'Poolside view unit C type', size: 68, image: unitPhoto, availability: 'Available' },
+  8: { aptNumber: 8, description: 'Poolside view unit A type', size: 90, image: unitPhoto, availability: 'Available' },
+
+  9: {
+    aptNumber: 9,
+    description: 'Poolside view unit A type',
+    size: 90,
+    image: '/assets/units_photo.png',
+    availability: 'Available',
+  },
+  10: {
+    aptNumber: 10,
+    description: 'Poolside view unit A type',
+    size: 90,
+    image: '/assets/units_photo.png',
+    availability: 'Sold',
+  },
+  11: {
+    aptNumber: 11,
+    description: 'Poolside view unit A type',
+    size: 90,
+    image: '/assets/units_photo.png',
+    availability: 'Available',
+  },
+  12: {
+    aptNumber: 12,
+    description: 'Poolside view unit D type',
+    size: 90,
+    image: '/assets/units_photo.png',
+    availability: 'Available',
+  },
 };
 
 // ===== SCENE SETUP =====
@@ -129,8 +155,8 @@ document.body.appendChild(label);
 const viewer = new GaussianSplats3D.Viewer({
   threeScene,
   cameraUp: [0, -1, 0],
-  initialCameraPosition: [1.10316, -3.17695, -9.93340],
-  initialCameraLookAt: [2.26650, -0.99005, -5.24780],
+  initialCameraPosition: [1.10316, -3.17695, -9.9334],
+  initialCameraLookAt: [2.2665, -0.99005, -5.2478],
   inMemoryCompressionLevel: 1,
   renderMode: GaussianSplats3D.RenderMode.OnChange,
   sceneRevealMode: GaussianSplats3D.SceneRevealMode.Gradual,
@@ -144,36 +170,36 @@ const viewer = new GaussianSplats3D.Viewer({
 let controls;
 
 const resetCameraView = () => {
-  console.log(viewer.camera.position)
+  console.log(viewer.camera.position);
   gsap.to(viewer.camera.position, {
     duration: 2.5,
     x: -1.17621,
     y: -3.92368,
     z: -7.46254,
     onComplete: () => {
-      viewer.setupEventHandlers()
+      viewer.setupEventHandlers();
       controls.enabled = true;
       controls.enableZoom = true;
       controls.enableRotate = true;
       controls.enablePan = true;
-    }
+    },
   });
 };
 
 const resetCameraViewWithDisabledControls = () => {
-  console.log(viewer.camera.position)
+  console.log(viewer.camera.position);
   gsap.to(viewer.camera.position, {
     duration: 2.5,
     x: -1.17621,
     y: -3.92368,
     z: -7.46254,
     onComplete: () => {
-      viewer
+      viewer;
       controls.enabled = true;
       controls.enableZoom = true;
       controls.enableRotate = true;
       controls.enablePan = true;
-    }
+    },
   });
 };
 
@@ -253,110 +279,110 @@ viewer
 
     function onMouseMove(event) {
       const currentActive = document.querySelector('.navlist__item.active');
-  if (!currentActive || currentActive.textContent.trim() !== 'Apartments') return;
+      if (!currentActive || currentActive.textContent.trim() !== 'Apartments') return;
 
-  // Только для мыши, пальца или стилуса
-  if (!['mouse', 'touch', 'pen'].includes(event.pointerType)) return;
+      // Только для мыши, пальца или стилуса
+      if (!['mouse', 'touch', 'pen'].includes(event.pointerType)) return;
 
-  const rect = renderer.domElement.getBoundingClientRect();
+      const rect = renderer.domElement.getBoundingClientRect();
 
-  const pointer = new THREE.Vector2(
-    ((event.clientX - rect.left) / rect.width) * 2 - 1,
-    -((event.clientY - rect.top) / rect.height) * 2 + 1
-  );
+      const pointer = new THREE.Vector2(
+        ((event.clientX - rect.left) / rect.width) * 2 - 1,
+        -((event.clientY - rect.top) / rect.height) * 2 + 1,
+      );
 
-  raycaster.setFromCamera(pointer, camera);
-  const intersects = raycaster.intersectObjects(buildingGroup.children);
+      raycaster.setFromCamera(pointer, camera);
+      const intersects = raycaster.intersectObjects(buildingGroup.children);
 
-  if (intersects.length > 0) {
-    const floor = intersects[0].object;
+      if (intersects.length > 0) {
+        const floor = intersects[0].object;
 
-    if (hoveredFloor && hoveredFloor !== selectedFloor) {
-      hoveredFloor.material.opacity = 0;
-      hoveredFloor.material.colorWrite = false;
-      hoveredFloor.material.depthWrite = false;
-    }
+        if (hoveredFloor && hoveredFloor !== selectedFloor) {
+          hoveredFloor.material.opacity = 0;
+          hoveredFloor.material.colorWrite = false;
+          hoveredFloor.material.depthWrite = false;
+        }
 
-    if (floor !== selectedFloor) {
-      floor.material.opacity = 0.6;
-      floor.material.colorWrite = true;
-      floor.material.depthWrite = true;
-    }
+        if (floor !== selectedFloor) {
+          floor.material.opacity = 0.6;
+          floor.material.colorWrite = true;
+          floor.material.depthWrite = true;
+        }
 
-    hoveredFloor = floor;
+        hoveredFloor = floor;
 
-    const point = intersects[0].point.clone().project(camera);
-    const x = (point.x * 0.5 + 0.5) * rect.width + rect.left;
-    const y = (1 - (point.y * 0.5 + 0.5)) * rect.height + rect.top;
+        const point = intersects[0].point.clone().project(camera);
+        const x = (point.x * 0.5 + 0.5) * rect.width + rect.left;
+        const y = (1 - (point.y * 0.5 + 0.5)) * rect.height + rect.top;
 
-    label.innerText = `Unit ${floor.userData.floorNumber}`;
-    label.style.left = `${x}px`;
-    label.style.top = `${y - 20}px`;
-    label.style.display = 'block';
-  } else {
-    if (hoveredFloor && hoveredFloor !== selectedFloor) {
-      hoveredFloor.material.opacity = 0;
-      hoveredFloor.material.colorWrite = false;
-      hoveredFloor.material.depthWrite = false;
-    }
-    hoveredFloor = null;
-    label.style.display = 'none';
-  }
+        label.innerText = `Unit ${floor.userData.floorNumber}`;
+        label.style.left = `${x}px`;
+        label.style.top = `${y - 20}px`;
+        label.style.display = 'block';
+      } else {
+        if (hoveredFloor && hoveredFloor !== selectedFloor) {
+          hoveredFloor.material.opacity = 0;
+          hoveredFloor.material.colorWrite = false;
+          hoveredFloor.material.depthWrite = false;
+        }
+        hoveredFloor = null;
+        label.style.display = 'none';
+      }
     }
 
     function onClick(event) {
       const currentActive = document.querySelector('.navlist__item.active');
       if (!currentActive || currentActive.textContent.trim() !== 'Apartments') return;
-    
+
       const isTouch = event.type.startsWith('touch') || event.pointerType === 'touch';
       const input = isTouch ? (event.touches ? event.touches[0] : event) : event;
       if (!input) return;
-    
+
       const rect = viewer.renderer.domElement.getBoundingClientRect();
-    
+
       const mouse = new THREE.Vector2(
         ((input.clientX - rect.left) / rect.width) * 2 - 1,
-        -((input.clientY - rect.top) / rect.height) * 2 + 1
+        -((input.clientY - rect.top) / rect.height) * 2 + 1,
       );
-    
+
       const raycaster = new THREE.Raycaster();
       raycaster.setFromCamera(mouse, viewer.camera);
       const intersects = raycaster.intersectObjects(buildingGroup.children);
-    
+
       if (intersects.length > 0) {
         const clickedFloor = intersects[0].object;
         const floorNum = clickedFloor.userData.floorNumber;
         const data = aptData[floorNum];
-    
+
         // ✅ Подсветка
         if (selectedFloor && selectedFloor !== clickedFloor) {
           hideFloor(selectedFloor);
         }
         showFloor(clickedFloor);
         selectedFloor = clickedFloor;
-    
+
         // 📦 Отображение карточки
         const apartmentCard = document.getElementById('apartmentCard');
         const apartmentCardContent = document.getElementById('apartmentCardContent');
         apartmentCardContent.innerHTML = '';
-    
+
         if (data) {
           const template = document.getElementById('apartmentCardTemplate');
           const clone = template.content.cloneNode(true);
-    
+
           clone.querySelector('img').src = data.image;
           clone.querySelector('img').alt = `Apartment ${data.aptNumber}`;
           clone.querySelector('h3').textContent = `Unit ${data.aptNumber}`;
           clone.querySelector('.description').textContent = data.description;
           clone.querySelector('.size strong').textContent = `${data.size} m²`;
           clone.querySelector('.availability').textContent = data.availability;
-    
+
           apartmentCardContent.appendChild(clone);
-    
+
           if (window.innerWidth <= 768) {
             apartmentsCard.classList.add('hidden');
           }
-    
+
           apartmentCard.classList.remove('hidden');
         } else {
           apartmentCardContent.innerHTML = `<h3>No data for apartment ${floorNum}</h3>`;
@@ -377,12 +403,12 @@ viewer
       floor.material.depthWrite = true;
     }
 
-    document.body.addEventListener('click', (e) => {
+    document.body.addEventListener('click', e => {
       const backBtn = e.target.closest('.btn-back');
       if (backBtn) {
         apartmentCard.classList.add('hidden');
         apartmentsCard.classList.remove('hidden');
-    
+
         // Убрать подсветку с выбранного блока
         if (selectedFloor) {
           hideFloor(selectedFloor);
@@ -438,30 +464,30 @@ const aptcoors = {
     x: 2.50114,
     y: -1.5,
     z: -7,
-    target: { x: 2.5, y: -1, z: -5.7 }
+    target: { x: 2.5, y: -1, z: -5.7 },
   },
   'apt-102': {
     x: 3.86658,
     y: -1.45791,
     z: -7.04782,
-    target: { x: 3.27752, y: -0.94184, z: -6.28653 }
+    target: { x: 3.27752, y: -0.94184, z: -6.28653 },
   },
   'apt-103': {
     x: 4.99252,
     y: -1.95072,
     z: -5.10572,
-    target: { x: 3.92374, y: -0.84633, z: -3.56496 }
+    target: { x: 3.92374, y: -0.84633, z: -3.56496 },
   },
   villas: {
     x: 5.35342,
     y: -1.55906,
     z: -5.00447,
-    target: { x: 4, y: -0.83, z: -5 }
-  }
+    target: { x: 4, y: -0.83, z: -5 },
+  },
 };
 
 function moveCameraToApartment(aptName) {
- const camera = viewer.camera;
+  const camera = viewer.camera;
   const targetData = aptcoors[aptName];
 
   if (!targetData) {
@@ -475,7 +501,7 @@ function moveCameraToApartment(aptName) {
     camZ: camera.position.z,
     targetX: controls.target.x,
     targetY: controls.target.y,
-    targetZ: controls.target.z
+    targetZ: controls.target.z,
   };
 
   const to = {
@@ -484,7 +510,7 @@ function moveCameraToApartment(aptName) {
     camZ: targetData.z,
     targetX: targetData.target.x,
     targetY: targetData.target.y,
-    targetZ: targetData.target.z
+    targetZ: targetData.target.z,
   };
 
   gsap.to(from, {
@@ -502,11 +528,11 @@ function moveCameraToApartment(aptName) {
       controls.update();
     },
     onComplete: () => {
-       viewer.controls.enabled = false;
-       viewer.controls.enableZoom = false;
-       viewer.controls.enableRotate = false;
-       viewer.controls.enablePan = false;
-    }
+      viewer.controls.enabled = false;
+      viewer.controls.enableZoom = false;
+      viewer.controls.enableRotate = false;
+      viewer.controls.enablePan = false;
+    },
   });
   viewer.removeEventHandlers();
 }

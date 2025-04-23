@@ -20,16 +20,47 @@
       <img src="/assets/Breig_shot_05_v01.png" alt="Apartments" />
       <div class="apartments-card__content">
         <h3>Apartments</h3>
-        <hr class="mobile-hide"/>
         <p class="mobile-hide">
-          Calm, turquoise waters are protected by a coral reef, offering a serene and safe environment perfect for swimming and relaxation.
+          Calm, turquoise waters are protected by a coral reef, offering a serene and safe environment perfect for
+          swimming and relaxation.
         </p>
+        <div class="details mobile-hide">
+          <span>from<span class="highlighted-text"> 34 m²</span></span>
+          <span>from<span class="highlighted-text"> $115 000</span></span>
+          <span>Finish<span class="highlighted-text"> IV, 2025</span></span>
+        </div>
         <hr class="mobile-hide" />
         <ul class="apartment-options">
-          <li data-apt-id="apt-101">Apartments, block 1</li>
-          <li data-apt-id="apt-102">Apartments, block 2</li>
-          <li data-apt-id="apt-103">Apartments, block 3</li>
-          <li data-apt-id="villas">Villa</li>
+          <li data-apt-id="apt-101">
+            <img
+              class="mobile-hide"
+              src="../assets/image.png"
+              alt="Apartments icon"
+              height="24"
+              width="24"
+            />Apartments, block 1
+          </li>
+          <li data-apt-id="apt-102">
+            <img
+              class="mobile-hide"
+              src="../assets/image.png"
+              alt="Apartments icon"
+              height="24"
+              width="24"
+            />Apartments, block 2
+          </li>
+          <li data-apt-id="apt-103">
+            <img
+              class="mobile-hide"
+              src="../assets/image.png"
+              alt="Apartments icon"
+              height="24"
+              width="24"
+            />Apartments, block 3
+          </li>
+          <li data-apt-id="villas">
+            <img class="mobile-hide" src="../assets/image.png" alt="Apartments icon" height="24" width="24" />Villa
+          </li>
         </ul>
       </div>
     </section>
@@ -55,26 +86,27 @@
     </template>
 
     <!-- 🧩 Apartment Card Template -->
-<template id="apartmentCardTemplate">
-  <div class="apartment-card__content">
-    <div class="apartment-photo-wrapper">
-      <img src="" alt="" class="apartment-photo" />
-    </div>
+    <template id="apartmentCardTemplate">
+      <div class="apartment-card__content">
+        <div class="apartment-photo-wrapper">
+          <img src="" alt="" class="apartment-photo" />
+        </div>
 
-    <div class="apartment-card-right">
-      <h3></h3>
-      <p class="description"></p>
-      <div class="card-info">
-        <p class="size">sq: <strong></strong></p>
-        <p class="availability"></p>
+        <div class="apartment-card-right">
+          <h3></h3>
+          <p class="description"></p>
+          <div class="card-info">
+            <p class="size">sq: <strong></strong></p>
+            <p class="availability"></p>
+          </div>
+          <div class="card-buttons">
+            <button class="btn secondary btn-back">← Back</button>
+            <button class="btn primary">▶ Visit unit</button>
+            <button class="btn secondary btn-street">Street View</button>
+          </div>
+        </div>
       </div>
-      <div class="card-buttons"><button class="btn secondary btn-back">← Back</button>
-        <button class="btn primary">▶ Visit unit</button>
-        <button class="btn secondary btn-street">Street View</button>
-      </div>
-    </div>
-  </div>
-</template>
+    </template>
 
     <script type="module" src="/src/test_breig/index.js"></script>
   </body>
