@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <link rel="stylesheet" href="/src/test_breig/styles.css" />
+    <link rel="stylesheet" href="/src/test_breig/base.css" />
+    <link rel="stylesheet" href="/src/test_breig/desktop.css" />
+    <link rel="stylesheet" href="/src/test_breig/mobile.css" />
+
     <title>3D Viewer</title>
   </head>
   <body>
@@ -32,41 +35,26 @@
         <hr class="mobile-hide" />
         <ul class="apartment-options">
           <li data-apt-id="apt-101">
-            <img
-              class="mobile-hide"
-              src="../assets/image.png"
-              alt="Apartments icon"
-              height="24"
-              width="24"
-            />Apartments, block 1
+            <img class="mobile-hide" src="/assets/image.png" alt="Apartments icon" height="24" width="24" />Apartments,
+            block 1
           </li>
           <li data-apt-id="apt-102">
-            <img
-              class="mobile-hide"
-              src="../assets/image.png"
-              alt="Apartments icon"
-              height="24"
-              width="24"
-            />Apartments, block 2
+            <img class="mobile-hide" src="/assets/image.png" alt="Apartments icon" height="24" width="24" />Apartments,
+            block 2
           </li>
           <li data-apt-id="apt-103">
-            <img
-              class="mobile-hide"
-              src="../assets/image.png"
-              alt="Apartments icon"
-              height="24"
-              width="24"
-            />Apartments, block 3
+            <img class="mobile-hide" src="/assets/image.png" alt="Apartments icon" height="24" width="24" />Apartments,
+            block 3
           </li>
           <li data-apt-id="villas">
-            <img class="mobile-hide" src="../assets/image.png" alt="Apartments icon" height="24" width="24" />Villa
+            <img class="mobile-hide" src="/assets/image.png" alt="Apartments icon" height="24" width="24" />Villa
           </li>
         </ul>
       </div>
     </section>
 
     <section class="info-card amenities-card hidden" id="amenitiesCard" aria-hidden="true">
-      <div class="amenities-card__content" id="amenitiesCardContent"></div>
+      <div class="amenities-card__content amenities-card-layout" id="amenitiesCardContent"></div>
     </section>
 
     <section class="info-card apartment-card hidden" id="apartmentCard" aria-hidden="true">
@@ -74,36 +62,32 @@
     </section>
 
     <template id="amenitiesCardTemplate">
-      <div class="amenities-card__content amenities-card-layout">
-        <div class="amenities-img-wrapper">
-          <img src="" alt="" class="amenities-img" />
-        </div>
-        <div class="amenities-text">
-          <h3></h3>
-          <p class="amenities-description"></p>
-        </div>
+      <div class="amenities-img-wrapper">
+        <img src="" alt="" class="amenities-img" />
+      </div>
+      <div class="amenities-text">
+        <h3></h3>
+        <p class="amenities-description"></p>
       </div>
     </template>
 
     <!-- 🧩 Apartment Card Template -->
     <template id="apartmentCardTemplate">
-      <div class="apartment-card__content">
-        <div class="apartment-photo-wrapper">
-          <img src="" alt="" class="apartment-photo" />
-        </div>
+      <div class="apartment-photo-wrapper">
+        <img src="" alt="" class="apartment-photo" />
+      </div>
 
-        <div class="apartment-card-right">
-          <h3></h3>
-          <p class="description"></p>
-          <div class="card-info">
-            <p class="size">sq: <strong></strong></p>
-            <p class="availability"></p>
-          </div>
-          <div class="card-buttons">
-            <button class="btn secondary btn-back">← Back</button>
-            <button class="btn primary">▶ Visit unit</button>
-            <button class="btn secondary btn-street">Street View</button>
-          </div>
+      <div class="apartment-card-right">
+        <h3></h3>
+        <p class="description"></p>
+        <div class="card-info">
+          <p class="size">sq: <strong></strong></p>
+          <p class="availability"></p>
+        </div>
+        <div class="card-buttons">
+          <button class="btn secondary btn-back">← Back</button>
+          <button class="btn primary">▶ Visit unit</button>
+          <button class="btn secondary btn-street">Street View</button>
         </div>
       </div>
     </template>

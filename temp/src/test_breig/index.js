@@ -248,7 +248,7 @@ const resetCameraViewWithDisabledControls = () => {
 
 // ===== LOAD SCENE & INTERACTION =====
 viewer
-  .addSplatScene('/assets/Breig_future.ksplat', {
+  .addSplatScene('../assets/Breig_future.ksplat', {
     splatAlphaRemovalThreshold: 15,
     showLoadingUI: true,
     progressiveLoad: true,
